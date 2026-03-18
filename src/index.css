@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* TryHackMe-inspired dark theme */
+    --background: 210 100% 6%;
+    --foreground: 120 100% 85%;
+
+    --card: 210 100% 8%;
+    --card-foreground: 120 100% 85%;
+
+    --popover: 210 100% 8%;
+    --popover-foreground: 120 100% 85%;
+
+    --primary: 120 100% 50%;
+    --primary-foreground: 210 100% 6%;
+
+    --secondary: 210 50% 12%;
+    --secondary-foreground: 120 100% 85%;
+
+    --muted: 210 50% 12%;
+    --muted-foreground: 120 50% 65%;
+
+    --accent: 120 100% 50%;
+    --accent-foreground: 210 100% 6%;
+
+    --destructive: 0 100% 60%;
+    --destructive-foreground: 210 100% 6%;
+
+    --border: 210 50% 15%;
+    --input: 210 50% 15%;
+    --ring: 120 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom portfolio theme colors */
+    --cyber-green: 120 100% 50%;
+    --cyber-green-glow: 120 100% 70%;
+    --cyber-blue: 200 100% 60%;
+    --dark-surface: 210 100% 8%;
+    --darker-surface: 210 100% 5%;
+    --terminal-green: 120 100% 45%;
+    
+    /* Gradients */
+    --gradient-cyber: linear-gradient(135deg, hsl(var(--cyber-green)), hsl(var(--cyber-blue)));
+    --gradient-dark: linear-gradient(180deg, hsl(var(--dark-surface)), hsl(var(--darker-surface)));
+    
+    /* Shadows */
+    --shadow-glow: 0 0 20px hsl(var(--cyber-green) / 0.3);
+    --shadow-card: 0 8px 32px hsl(210 100% 3% / 0.5);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .matrix-bg {
+    position: relative;
+    overflow: hidden;
+    background-color: hsl(var(--darker-surface));
+  }
+
+  .matrix-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(to right, hsl(var(--primary) / 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--primary) / 0.1) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+  }
+
+  .matrix-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, hsl(var(--primary) / 0.15) 0%, transparent 80%);
+    z-index: 0;
+  }
+
+  .matrix-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+}
