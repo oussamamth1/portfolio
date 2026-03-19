@@ -70,6 +70,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ onClose }) => {
           <form ref={formRef} onSubmit={sendEmail} className="space-y-4">
             <Input placeholder="Your Name" name="user_name" required />
             <Input type="email" placeholder="Your Email" name="user_email" required />
+            {/* Used by EmailJS template to decide the recipient */}
+            <input type="hidden" name="to_email" value="oussamamethnani321@gmail.com" />
             <Textarea placeholder="Your Message" name="message" required />
             <Button type="submit" className="w-full">
               Send Message

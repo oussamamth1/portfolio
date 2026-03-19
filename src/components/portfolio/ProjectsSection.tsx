@@ -33,7 +33,7 @@ const ProjectsSection = () => {
       status: "Published",
       github: "",
       demo: "https://play.google.com/store/apps/details?id=com.zenifytrip.tunisiepromo.app&hl=fr",
-      imageUrl: "/placeholder.svg",
+      imageUrl: "/tunisiepromo_with_qr_code.png",
     },
     {
       title: "Tunisie Promo (Client App)",
@@ -53,7 +53,7 @@ const ProjectsSection = () => {
       status: "Published",
       github: "",
       demo: "https://play.google.com/store/apps/details?id=com.zenify_client_app.tunisie_promo&hl=fr",
-      imageUrl: "/placeholder.svg",
+      imageUrl: "/tunisiepromo.jpg",
     },
     {
       title: "G‑Sunshine & Traveller‑Sunshine",
@@ -73,7 +73,7 @@ const ProjectsSection = () => {
       status: "Published",
       github: "",
       demo: "https://play.google.com/store/apps/details?id=com.zenify_app",
-      imageUrl: "/placeholder.svg",
+      imageUrl: "/sunshine_with_qr_code.png",
     },
   ];
 
