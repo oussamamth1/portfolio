@@ -19,9 +19,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ onClose }) => {
 
     try {
       // Optional: debug env vars once
-      console.log("SERVICE:", import.meta.env.VITE_EMAILJS_SERVICE_ID);
+      console.log(" :", import.meta.env.VITE_EMAILJS_SERVICE_ID);
       console.log("TEMPLATE:", import.meta.env.VITE_EMAILJS_TEMPLATE_ID);
-      console.log("PUBLIC KEY:", import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+      console.log("PUBLIC KEY s:", import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
 
       const result = await emailjs.sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID as string,
