@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173)",
+      "Bash(npm install *)",
+      "Bash(npx skills *)",
+      "Bash(python *)",
+      "Bash(where python3 *)",
+      "Bash(where python *)",
+      "Bash(where py *)",
+      "Bash(py --version)",
+      "Bash(python3 *)",
+      "Bash(node -e \"require\\('framer-motion'\\); require\\('three'\\); require\\('@react-three/fiber'\\); require\\('@react-three/drei'\\); console.log\\('all ok'\\)\")"
+    ]
+  }
+}
