@@ -7,7 +7,7 @@ import CvDownloadModal from "./CvDownloadModal";
 import ParticleBackground from "./ParticleBackground";
 import AnimatedCounter from "./AnimatedCounter";
 
-const TYPING_WORDS = ["Mobile Developer", "Flutter Expert", "NestJS Engineer", "CI/CD Architect"];
+const TYPING_WORDS = ["Mobile Developer", "Flutter Expert", "NestJS Engineer", "CI/CD Architect", "AI-Powered Developer"];
 
 const HeroSection = () => {
   const [isContactFormOpen, setContactFormOpen] = useState(false);
@@ -102,6 +102,7 @@ const HeroSection = () => {
               >
                 4+ years shipping production Flutter apps to Google Play & App Store.
                 Expert in Firebase, NestJS, CI/CD pipelines, and state management (BLoC, Riverpod, Provider).
+                Proficient in AI-assisted development with Claude Code — leveraging AI professionally to architect, build, and ship full products faster.
               </motion.p>
 
               <motion.div variants={fadeUp} className="flex flex-wrap gap-3">

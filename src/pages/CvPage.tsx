@@ -284,11 +284,53 @@ const CvPage = () => {
             max-width: 100% !important;
             box-shadow: none !important;
             border-radius: 0 !important;
+            overflow: visible !important;
           }
-          @page {
-            size: A4;
-            margin: 0;
-          }
+          @page { size: A4; margin: 0; }
+
+          /* ── Header ── */
+          .cv-header { padding: 10px 22px !important; }
+          .cv-header > div { gap: 10px !important; align-items: center !important; }
+          .cv-header img { width: 44px !important; height: 44px !important; min-width: 44px !important; }
+          .cv-header h1 { font-size: 16px !important; line-height: 1.2 !important; }
+          .cv-header p { font-size: 10px !important; margin-top: 1px !important; }
+          .cv-header > div > div:last-child { gap: 2px !important; }
+          .cv-header svg { width: 9px !important; height: 9px !important; }
+
+          /* ── Body columns ── */
+          .cv-body > div:first-child { padding: 7px 14px !important; }
+          .cv-body > div:last-child  { padding: 7px 10px !important; }
+
+          /* space-y overrides */
+          .cv-body .space-y-8 > * + * { margin-top: 9px !important; }
+          .cv-body .space-y-4 > * + * { margin-top: 6px !important; }
+          .cv-body .space-y-3 > * + * { margin-top: 5px !important; }
+          .cv-body .space-y-2 > * + * { margin-top: 3px !important; }
+          .cv-body .space-y-1\\.5 > * + * { margin-top: 2px !important; }
+
+          /* gap / mt / p overrides */
+          .cv-body .gap-3   { gap: 4px !important; }
+          .cv-body .gap-2   { gap: 3px !important; }
+          .cv-body .gap-2\\.5 { gap: 3px !important; }
+          .cv-body .mt-4    { margin-top: 5px !important; }
+          .cv-body .mt-3    { margin-top: 4px !important; }
+          .cv-body .mt-2    { margin-top: 2px !important; }
+          .cv-body .mt-1    { margin-top: 1px !important; }
+          .cv-body .mt-0\\.5 { margin-top: 1px !important; }
+          .cv-body .mt-1\\.5 { margin-top: 2px !important; }
+          .cv-body .p-3     { padding: 4px 6px !important; }
+          .cv-body .pb-2    { padding-bottom: 3px !important; }
+          .cv-body .mb-1\\.5 { margin-bottom: 2px !important; }
+
+          /* Text sizes */
+          .cv-body .text-sm  { font-size: 9.5px !important; line-height: 1.3 !important; }
+          .cv-body .text-xs  { font-size: 8.5px !important; line-height: 1.3 !important; }
+          .cv-body h2 { font-size: 8.5px !important; }
+          .cv-body h3 { font-size: 9.5px !important; }
+          .cv-body li { line-height: 1.25 !important; }
+
+          /* Footer */
+          .cv-sheet > div:last-child { padding: 3px 14px !important; }
         }
       `}</style>
     </>

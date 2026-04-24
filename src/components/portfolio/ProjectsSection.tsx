@@ -16,6 +16,35 @@ const ProjectsSection = () => {
 
   const projects = [
     {
+      title: "Facturation — Invoicing App",
+      company: "Personal / Freelance",
+      period: "2025–2026",
+      location: "Tunisia",
+      description:
+        "Full-stack invoicing and job-tracking mobile app for small service businesses (HVAC, etc.), built entirely with Flutter and Firebase. Developed end-to-end using Claude Code (AI-assisted workflow) — from architecture to release APK — demonstrating professional use of AI tools to ship production software faster.",
+      icon: Briefcase,
+      category: "Mobile (Flutter)",
+      technologies: [
+        "Flutter",
+        "Dart",
+        "Firebase",
+        "Riverpod",
+        "Claude Code (AI)",
+        "PDF Generation",
+        "Android Release",
+      ],
+      highlights: [
+        "Converted vanilla JS web app to Flutter in a single session using AI-assisted development",
+        "PDF invoice generation with company logo embedding",
+        "Firestore real-time sync, auth, and multi-user data isolation",
+        "Release APK signed and built — resolving complex Gradle & dependency conflicts with AI pair-programming",
+      ],
+      status: "Published",
+      github: "",
+      demo: "",
+      imageUrl: "",
+    },
+    {
       title: "Tunisie Promo: Hôtels & Voyage",
       company: "zenify",
       period: "2025–2026",

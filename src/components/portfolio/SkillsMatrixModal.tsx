@@ -76,12 +76,12 @@ const roles = [
     name: "AI & Automation",
     icon: Code,
     skills: [
-      { subject: "Python Automation", A: 75, fullMark: 100 },
+      { subject: "Claude Code (AI Dev)", A: 90, fullMark: 100 },
+      { subject: "Prompt Engineering", A: 88, fullMark: 100 },
+      { subject: "AI-Assisted Architecture", A: 85, fullMark: 100 },
       { subject: "CrewAI / Agent Orchestration", A: 80, fullMark: 100 },
-      { subject: "Prompt Engineering", A: 85, fullMark: 100 },
-      { subject: "Chatbot Design", A: 90, fullMark: 100 },
-      { subject: "Testing Automation", A: 70, fullMark: 100 },
-      { subject: "Data Processing", A: 65, fullMark: 100 },
+      { subject: "Chatbot Design", A: 82, fullMark: 100 },
+      { subject: "Python Automation", A: 75, fullMark: 100 },
     ],
   },
 ];
