@@ -1,14 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { useInView, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface AnimatedCounterProps {
   value: number;
   label: string;
   suffix?: string;
   prefix?: string;
+  className?: string;
+  numberClassName?: string;
+  labelClassName?: string;
 }
 
-const AnimatedCounter = ({ value, label, suffix = "", prefix = "" }: AnimatedCounterProps) => {
+const AnimatedCounter = ({
+  value, label, suffix = "", prefix = "",
+  className, numberClassName, labelClassName,
+}: AnimatedCounterProps) => {
   const ref = useRef<HTMLSpanElement>(null);
   const prefersReduced = useReducedMotion();
   const motionValue = useMotionValue(0);
@@ -17,8 +24,8 @@ const AnimatedCounter = ({ value, label, suffix = "", prefix = "" }: AnimatedCou
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
-    if (isInView) motionValue.set(prefersReduced ? value : value);
-  }, [isInView, motionValue, value, prefersReduced]);
+    if (isInView) motionValue.set(value);
+  }, [isInView, motionValue, value]);
 
   useEffect(() => {
     if (prefersReduced) { setDisplay(value); return; }
@@ -27,11 +34,11 @@ const AnimatedCounter = ({ value, label, suffix = "", prefix = "" }: AnimatedCou
   }, [spring, prefersReduced, value]);
 
   return (
-    <div className="flex flex-col items-center gap-1">
-      <span ref={ref} className="font-display text-4xl font-bold text-gradient leading-none">
+    <div className={cn("flex flex-col items-center gap-1", className)}>
+      <span ref={ref} className={cn("font-display text-4xl font-bold text-gradient leading-none", numberClassName)}>
         {prefix}{display}{suffix}
       </span>
-      <span className="text-sm text-muted-foreground font-medium tracking-wide uppercase">
+      <span className={cn("text-sm text-muted-foreground font-medium tracking-wide uppercase", labelClassName)}>
         {label}
       </span>
     </div>

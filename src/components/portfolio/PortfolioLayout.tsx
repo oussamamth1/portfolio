@@ -1,11 +1,10 @@
 import Navigation from "./Navigation";
 import HeroSection from "./HeroSection";
- import ProjectsSection from "./ProjectsSection";
+import ProjectsSection from "./ProjectsSection";
 import InternshipsSection from "./InternshipsSection";
 import EducationSection from "./EducationSection";
 import LanguagesSection from "./LanguagesSection";
 import MotivationSection from "./MotivationSection";
-import PortfolioStats from "./PortfolioStats";
 import ContactSection from "./ContactSection";
 
 const PortfolioLayout = () => {
@@ -14,8 +13,7 @@ const PortfolioLayout = () => {
       <Navigation />
       <main>
         <HeroSection />
-        <PortfolioStats/>
-         <ProjectsSection />
+        <ProjectsSection />
         <InternshipsSection />
         <EducationSection />
         <LanguagesSection />

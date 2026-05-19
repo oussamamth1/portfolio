@@ -1,183 +1,232 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  Languages,
-  Globe,
-  BookOpen,
-  ArrowUpNarrowWideIcon,
-  Shield,
-} from "lucide-react";
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Smartphone, Globe, Server, GitBranch, Database, Cpu, Figma, Wrench, BookOpen, Shield, ChevronRight } from "lucide-react";
+import SkillsMatrixModal from "./SkillsMatrixModal";
+
+const SKILL_GROUPS = [
+  {
+    id: "mobile",
+    label: "Mobile",
+    icon: Smartphone,
+    techs: ["Flutter", "Dart", "Bloc", "Riverpod", "Provider", "Android Studio", "Xcode"],
+    span: "col-span-2 row-span-1",
+  },
+  {
+    id: "backend",
+    label: "Backend",
+    icon: Server,
+    techs: ["NestJS", "TypeScript", "REST APIs", "Node.js"],
+    span: "col-span-1 row-span-1",
+  },
+  {
+    id: "firebase",
+    label: "Firebase",
+    icon: Cpu,
+    techs: ["Firestore", "Realtime DB", "FCM", "Crashlytics", "Analytics", "App Distribution"],
+    span: "col-span-1 row-span-1",
+  },
+  {
+    id: "devops",
+    label: "DevOps / CI-CD",
+    icon: GitBranch,
+    techs: ["GitHub Actions", "GitLab CI", "Docker", "Firebase App Distribution"],
+    span: "col-span-1 row-span-1",
+  },
+  {
+    id: "databases",
+    label: "Databases",
+    icon: Database,
+    techs: ["Firestore", "Realtime Database", "SQLite", "PostgreSQL"],
+    span: "col-span-1 row-span-1",
+  },
+  {
+    id: "web",
+    label: "Frontend / Web",
+    icon: Globe,
+    techs: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    span: "col-span-1 row-span-1",
+  },
+  {
+    id: "design",
+    label: "Design & Tools",
+    icon: Figma,
+    techs: ["Figma", "Mobile UI/UX", "Git"],
+    span: "col-span-1 row-span-1",
+  },
+];
+
+const STATS = [
+  { value: "25+", label: "Technologies" },
+  { value: "7",   label: "Skill domains" },
+  { value: "4+",  label: "Years building" },
+];
+
+const tileVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, delay: i * 0.07, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  }),
+};
 
 const LanguagesSection = () => {
-  const skills = [
-    "Flutter",
-    "Dart",
-    "TypeScript",
-    "NestJS",
-    "REST APIs",
-    "Firebase",
-    "Firestore",
-    "Realtime Database",
-    "Firebase Cloud Messaging (FCM)",
-    "Crashlytics",
-    "Analytics",
-    "Firebase App Distribution",
-    "Bloc",
-    "Riverpod",
-    "Provider",
-    "Git",
-    "CI/CD",
-    "GitHub Actions",
-    "GitLab CI",
-    "Docker",
-    "Mobile UI/UX Design",
-    "Figma",
-    "Android Studio",
-    "Xcode",
-  ];
+  const [isSkillsMatrixOpen, setSkillsMatrixOpen] = useState(false);
 
   return (
-    <section id="languages" className="py-24">
-      <div className="container mx-auto px-4">
-        {/* Section header */}
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-2 text-primary mb-4">
-            <ArrowUpNarrowWideIcon className="h-6 w-6" />
-            <span className="text-sm uppercase tracking-wide">Skills</span>
+    <>
+      <section id="languages" className="relative py-24 overflow-hidden">
+        {/* Background */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse 55% 40% at 50% 0%, hsl(262 83% 68% / 0.07) 0%, transparent 70%)",
+          }}
+        />
+
+        <div className="relative container mx-auto px-6">
+          {/* Section header */}
+          <motion.div
+            className="text-center mb-10"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="section-label">
+              <Wrench className="h-4 w-4" />
+              Toolkit
+            </span>
+            <h2 className="font-display text-4xl font-bold mt-3 tracking-tight">Technical Skills</h2>
+            <div className="section-heading-line" />
+            <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
+              My core toolkit for building and shipping production mobile apps.
+            </p>
+          </motion.div>
+
+          {/* Stats strip */}
+          <motion.div
+            className="flex items-center justify-center gap-8 mb-8 flex-wrap"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
+            {STATS.map((stat) => (
+              <div key={stat.label} className="flex items-baseline gap-1.5">
+                <span className="font-display text-2xl font-bold text-gradient">{stat.value}</span>
+                <span className="text-xs text-muted-foreground font-mono tracking-wide">{stat.label}</span>
+              </div>
+            ))}
+            <div className="hidden sm:block w-px h-5 bg-border/50" />
+            <motion.button
+              onClick={() => setSkillsMatrixOpen(true)}
+              className="flex items-center gap-1.5 text-xs font-mono text-violet hover:text-violet-bright transition-colors duration-200"
+              whileHover={{ x: 2 }}
+            >
+              Open skills matrix <ChevronRight className="h-3.5 w-3.5" />
+            </motion.button>
+          </motion.div>
+
+          {/* Bento grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 auto-rows-auto">
+            {SKILL_GROUPS.map((group, i) => {
+              const Icon = group.icon;
+              return (
+                <motion.div
+                  key={group.id}
+                  custom={i}
+                  variants={tileVariants}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-40px" }}
+                  whileHover={{ y: -4, boxShadow: "0 16px 40px hsl(240 25% 2% / 0.6), 0 0 20px hsl(262 83% 68% / 0.1)" }}
+                  className={`group relative rounded-2xl border border-border/50 p-4 overflow-hidden transition-all duration-300 ${group.span}`}
+                  style={{ background: "linear-gradient(135deg, hsl(243 22% 10%) 0%, hsl(245 20% 8%) 100%)" }}
+                >
+                  {/* Accent gradient bar on hover */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: "var(--gradient-violet)" }}
+                  />
+
+                  <div className="flex items-center gap-2 mb-3">
+                    <div
+                      className="p-1.5 rounded-lg border border-violet/20 group-hover:border-violet/40 transition-colors duration-300"
+                      style={{ background: "hsl(262 83% 68% / 0.08)" }}
+                    >
+                      <Icon className="h-3.5 w-3.5 text-violet group-hover:text-violet-bright transition-colors" />
+                    </div>
+                    <span className="text-xs font-semibold text-foreground/80 uppercase tracking-wider">{group.label}</span>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {group.techs.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2 py-0.5 rounded-md text-[10px] font-mono border border-border/50 text-muted-foreground group-hover:border-violet/20 group-hover:text-muted-foreground/90 transition-colors duration-200"
+                        style={{ background: "hsl(245 20% 12%)" }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
-          <h2 className="text-4xl font-bold mb-6">Technical Skills & Growth</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            My core toolkit for building and shipping production mobile apps.
-          </p>
-        </div>
 
-        {/* Main layout: skills cloud + growth card */}
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)] items-start">
-          {/* Core skills */}
-          <Card className="bg-card border-border/70">
-            <CardHeader className="pb-3">
-              <div className="flex items-center gap-3 mb-1">
-                <div className="p-2 rounded-lg bg-primary/10">
-                  <Languages className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <CardTitle className="text-lg md:text-xl">
-                    Core technical toolkit
-                  </CardTitle>
-                  <p className="text-xs md:text-sm text-muted-foreground">
-                    Languages, frameworks and tools I use daily to build
-                    production-ready systems.
-                  </p>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-wrap gap-3">
-                {skills.map((skill, index) => (
-                  <Badge
-                    key={index}
-                    variant="outline"
-                    className="text-xs md:text-sm px-3 py-1 rounded-full"
-                  >
-                    {skill}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Ongoing learning / skills growth */}
-          <Card className="bg-gradient-to-br from-primary/10 via-card to-secondary/20 border-primary/30 shadow-lg shadow-primary/10">
-            <CardContent className="py-6 px-5 flex flex-col gap-4">
-              <div className="flex items-start gap-3">
-                <div className="p-3 rounded-xl bg-primary/20 flex items-center justify-center">
-                  <BookOpen className="h-6 w-6 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-[11px] uppercase tracking-[0.25em] text-primary mb-1">
-                    Currently growing
-                  </p>
-                  <h3 className="font-semibold text-lg mb-1 text-foreground">
-                    Continuous improvement
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    I keep improving my engineering practices around performance,
-                    clean architecture, and delivery automation to ship reliable
-                    applications end-to-end.
-                  </p>
-                </div>
-              </div>
-
-              {/* Two mini tracks: DevSecOps & AI */}
-              <div className="grid gap-4 md:grid-cols-2">
-                {/* Delivery track */}
-                <div className="rounded-lg border border-primary/30 bg-background/40 p-3">
+          {/* Currently Growing */}
+          <motion.div
+            className="mt-6 grid sm:grid-cols-2 gap-3"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {[
+              {
+                icon: Shield,
+                label: "Delivery Track",
+                desc: "Faster, safer releases with automation.",
+                techs: ["CI/CD", "App Distribution", "Testing pipelines", "Release management"],
+              },
+              {
+                icon: BookOpen,
+                label: "Mobile Architecture",
+                desc: "Building scalable, maintainable apps.",
+                techs: ["Clean Architecture", "State management", "Performance", "Offline & realtime"],
+              },
+            ].map((track) => {
+              const TrackIcon = track.icon;
+              return (
+                <div
+                  key={track.label}
+                  className="group rounded-2xl border border-violet/20 p-4 relative overflow-hidden"
+                  style={{ background: "linear-gradient(135deg, hsl(262 83% 68% / 0.06) 0%, hsl(230 68% 62% / 0.04) 100%)" }}
+                >
+                  <div className="card-top-accent" />
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="p-1.5 rounded-md bg-primary/15">
-                      <Shield className="h-4 w-4 text-primary" />
+                    <div className="p-1.5 rounded-lg bg-violet/15 border border-violet/25">
+                      <TrackIcon className="h-3.5 w-3.5 text-violet" />
                     </div>
-                    <span className="text-xs font-semibold uppercase tracking-wide text-primary">
-                      Delivery track
-                    </span>
+                    <span className="text-xs font-semibold uppercase tracking-wider text-violet">{track.label}</span>
                   </div>
-                  <p className="text-xs text-muted-foreground mb-2">
-                    Faster, safer releases with automation.
-                  </p>
+                  <p className="text-xs text-muted-foreground mb-2.5">{track.desc}</p>
                   <div className="flex flex-wrap gap-1.5">
-                    <Badge variant="outline" className="text-[10px] px-2 py-0.5">
-                      CI/CD
-                    </Badge>
-                    <Badge variant="outline" className="text-[10px] px-2 py-0.5">
-                      App Distribution
-                    </Badge>
-                    <Badge variant="outline" className="text-[10px] px-2 py-0.5">
-                      Testing pipelines
-                    </Badge>
-                    <Badge variant="outline" className="text-[10px] px-2 py-0.5">
-                      Release management
-                    </Badge>
+                    {track.techs.map((t) => (
+                      <span key={t} className="badge-tech">{t}</span>
+                    ))}
                   </div>
                 </div>
-
-                {/* Mobile architecture track */}
-                <div className="rounded-lg border border-primary/30 bg-background/40 p-3">
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="p-1.5 rounded-md bg-primary/15">
-                      <Globe className="h-4 w-4 text-primary" />
-                    </div>
-                    <span className="text-xs font-semibold uppercase tracking-wide text-primary">
-                      Mobile architecture
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted-foreground mb-2">
-                    Building scalable, maintainable apps.
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    <Badge variant="outline" className="text-[10px] px-2 py-0.5">
-                      Clean Architecture
-                    </Badge>
-                    <Badge variant="outline" className="text-[10px] px-2 py-0.5">
-                      State management
-                    </Badge>
-                    <Badge variant="outline" className="text-[10px] px-2 py-0.5">
-                      Performance
-                    </Badge>
-                    <Badge variant="outline" className="text-[10px] px-2 py-0.5">
-                      Offline & realtime
-                    </Badge>
-                  </div>
-                </div>
-              </div>
-
-              {/* Small footer line */}
-              <p className="text-[11px] text-muted-foreground mt-1">
-                This directly reinforces my work on production-ready mobile apps.
-              </p>
-            </CardContent>
-          </Card>
+              );
+            })}
+          </motion.div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {isSkillsMatrixOpen && <SkillsMatrixModal onClose={() => setSkillsMatrixOpen(false)} />}
+    </>
   );
 };
 

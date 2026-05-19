@@ -1,173 +1,246 @@
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { Briefcase, MapPin, ExternalLink, PlayCircle, X, Rocket, Users, Server } from "lucide-react";
+
+const experiences = [
+  {
+    company: "Continuous Net",
+    role: "Flutter & NestJS Developer",
+    period: "2022 – Present",
+    location: "Sousse, Tunisia",
+    type: "Full-time",
+    isCurrent: true,
+    logoUrl: "/continuousnet.png",
+    description:
+      "Developed and maintained production Flutter apps (Android, iOS, Web) with scalable architecture and advanced state management (Bloc, Riverpod, Provider). Built and integrated REST APIs with NestJS, implemented CI/CD pipelines with Firebase App Distribution, and delivered features using Firebase services (FCM, Realtime Database, Firestore, Crashlytics, Analytics). Shipped multiple apps to Google Play Store and App Store.",
+    highlights: [
+      "Shipped 10+ production apps to Google Play & App Store",
+      "Designed CI/CD pipelines reducing release time by 60%",
+      "Integrated Firebase suite: FCM, Crashlytics, Analytics, App Distribution",
+      "Built scalable NestJS REST APIs consumed by mobile clients",
+    ],
+    metrics: [
+      { icon: Rocket,  label: "Apps shipped", value: "10+" },
+      { icon: Users,   label: "Active users",  value: "500+" },
+      { icon: Server,  label: "APIs built",    value: "15+" },
+    ],
+    techs: ["Flutter", "Dart", "NestJS", "TypeScript", "Firebase", "Bloc", "Riverpod", "CI/CD", "Docker", "Git"],
+    demo: "https://play.google.com/store/apps/details?id=com.zenifytrip.tunisiepromo.app",
+    videoId: null as string | null,
+  },
+];
+
+const MotionCard = motion.div;
 
 const InternshipsSection = () => {
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
 
-  const internships = [
-    {
-      company: "Continuous Net",
-      role: "Flutter & NestJS Developer",
-      period: "2022 – 2025",
-      location: "Sousse, Tunisia",
-      description:
-        "Developed and maintained production Flutter apps (Android, iOS, Web) with scalable architecture and advanced state management (Bloc, Riverpod, Provider). Built and integrated REST APIs with NestJS, implemented CI/CD pipelines with Firebase App Distribution, and delivered features using Firebase services (FCM notifications, Realtime Database, Firestore, Crashlytics, Analytics). Shipped multiple apps to Google Play Store and App Store.",
-      logoUrl: "continuousnet.png",
-      demo: "https://play.google.com/store/apps/details?id=com.zenify_client_app.tunisie_promo&hl=fr",
-    },
-  ];
-
   return (
-    <section id="internships" className="py-24">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-6">Experience</h2>
-        </div>
+    <section id="internships" className="relative py-24 overflow-hidden">
+      {/* Background */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: [
+            "radial-gradient(ellipse 55% 40% at 20% 30%, hsl(262 83% 68% / 0.07) 0%, transparent 70%)",
+            "radial-gradient(ellipse 40% 35% at 85% 75%, hsl(230 68% 62% / 0.06) 0%, transparent 65%)",
+          ].join(", "),
+        }}
+      />
 
-        <div className="space-y-8">
-          {internships.map((internship, index) => (
-            <Card
-              key={index}
-              className="bg-card border-border hover:border-primary/50 transition-all duration-300 overflow-hidden"
-            >
-              <div className="flex flex-col md:flex-row">
-                {/* LEFT: Logo */}
-                <div className="md:w-1/4 flex items-center justify-center p-6 bg-muted/40">
-                  <img
-                    src={internship.logoUrl}
-                    alt={`${internship.company} logo`}
-                    className="h-20 w-auto object-contain"
-                  />
+      <div className="relative container mx-auto px-6">
+        {/* Section header */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <span className="section-label">
+            <Briefcase className="h-4 w-4" />
+            Professional Experience
+          </span>
+          <h2 className="font-display text-4xl font-bold mt-3 tracking-tight">Experience</h2>
+          <div className="section-heading-line" />
+        </motion.div>
+
+        {/* Experience entries */}
+        <div className="relative">
+          {/* Timeline spine */}
+          <div className="absolute left-6 top-0 bottom-0 w-px hidden md:block" style={{ background: "linear-gradient(to bottom, hsl(262 83% 68% / 0.6), hsl(262 83% 68% / 0.05))" }} />
+
+          <div className="space-y-8">
+            {experiences.map((exp, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -32 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="relative md:pl-16"
+              >
+                {/* Timeline node */}
+                <div className="absolute left-4 top-6 hidden md:flex items-center justify-center w-4 h-4 rounded-full border-2 border-violet bg-background -translate-x-1/2 z-10">
+                  <div className="w-1.5 h-1.5 rounded-full bg-violet" />
+                  {exp.isCurrent && (
+                    <span className="absolute -inset-1 rounded-full bg-violet/20 animate-ping" />
+                  )}
                 </div>
 
-                {/* RIGHT: Content */}
-                <div className="md:w-3/4">
-                  {/* TOP ROW: text + small video preview on the right */}
-                  <CardHeader className="pb-3">
-                    <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                      {/* Text block */}
+                <MotionCard
+                  whileHover={{ y: -4, boxShadow: "0 24px 60px hsl(240 25% 2% / 0.7), 0 0 30px hsl(262 83% 68% / 0.1)" }}
+                  className="group relative rounded-2xl border border-border/60 overflow-hidden transition-shadow duration-300"
+                  style={{ background: "linear-gradient(135deg, hsl(243 22% 10%) 0%, hsl(245 20% 8%) 100%)" }}
+                >
+                  <div className="card-top-accent" />
+
+                  {/* Left accent spine */}
+                  <div
+                    className="absolute left-0 top-0 bottom-0 w-[3px] rounded-l-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: "var(--gradient-violet)" }}
+                  />
+
+                  <div className="p-6 space-y-5">
+                    {/* Header */}
+                    <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+                      {/* Logo */}
+                      <div
+                        className="shrink-0 w-14 h-14 rounded-xl border border-border/60 flex items-center justify-center overflow-hidden"
+                        style={{ background: "hsl(245 20% 12%)" }}
+                      >
+                        <img
+                          src={exp.logoUrl}
+                          alt={`${exp.company} logo`}
+                          className="w-10 h-10 object-contain"
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                        />
+                      </div>
+
+                      {/* Text */}
                       <div className="flex-1 min-w-0">
-                        <CardTitle className="text-xl text-foreground">
-                          {internship.company}
-                        </CardTitle>
-                        <p className="text-primary font-semibold">
-                          {internship.role}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-4 mt-2 text-sm text-muted-foreground">
-                          <p>{internship.period}</p>
-                          <p>{internship.location}</p>
+                        <div className="flex flex-wrap items-center gap-2 mb-0.5">
+                          <h3 className="font-display font-semibold text-lg text-foreground">{exp.company}</h3>
+                          {exp.isCurrent && (
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold text-emerald-400 border border-emerald-400/30 bg-emerald-400/8">
+                              <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
+                              Current
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-violet font-semibold text-sm">{exp.role}</p>
+                        <div className="flex flex-wrap items-center gap-3 mt-1 text-xs text-muted-foreground">
+                          <span className="font-mono">{exp.period}</span>
+                          <span className="flex items-center gap-1">
+                            <MapPin className="h-3 w-3" />
+                            {exp.location}
+                          </span>
+                          <span className="px-2 py-0.5 rounded-md border border-border/60 font-mono" style={{ background: "hsl(245 20% 12%)" }}>
+                            {exp.type}
+                          </span>
                         </div>
                       </div>
 
-                      {/* Small video preview ONLY for ContinuousNet (or any with videoId) */}
-                      {internship.videoId && (
-                        <div className="w-full md:w-auto md:ml-4 flex-shrink-0">
-                          <p className="text-[10px] text-muted-foreground mb-1 font-semibold tracking-[0.15em] uppercase text-right">
-                            Project demo
-                          </p>
+                      {/* Action buttons */}
+                      <div className="flex items-center gap-2 shrink-0">
+                        {exp.videoId && (
                           <button
-                            type="button"
-                            onClick={() =>
-                              setActiveVideoId(internship.videoId as string)
-                            }
-                            className="group relative ml-auto w-36 sm:w-40 aspect-video rounded-lg overflow-hidden bg-black/80 border border-border shadow-sm hover:shadow-md transition-shadow"
+                            onClick={() => setActiveVideoId(exp.videoId)}
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-muted-foreground border border-border/50 hover:text-violet hover:border-violet/40 hover:bg-violet/5 transition-all duration-200"
                           >
-                            <img
-                              src={
-                                internship.videoThumbnail ||
-                                `https://img.youtube.com/vi/${internship.videoId}/hqdefault.jpg`
-                              }
-                              alt="Project demo video thumbnail"
-                              className="w-full h-full object-cover opacity-95 group-hover:opacity-100 transition-opacity duration-300"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent group-hover:from-black/50 group-hover:via-black/30 transition-colors duration-300" />
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="flex items-center gap-2 bg-black/70 px-3 py-1.5 rounded-full backdrop-blur-sm group-hover:bg-black/80 transition-colors">
-                                <div className="flex items-center justify-center w-7 h-7 rounded-full bg-primary shadow-lg group-hover:scale-105 transition-transform">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    className="w-3.5 h-3.5 text-primary-foreground ml-[1px]"
-                                  >
-                                    <polygon points="5 3 19 12 5 21 5 3" />
-                                  </svg>
-                                </div>
-                                <span className="text-[11px] text-white font-medium">
-                                  Watch demo
-                                </span>
-                              </div>
-                            </div>
+                            <PlayCircle className="h-3.5 w-3.5" />
+                            Demo
                           </button>
-                        </div>
-                      )}
+                        )}
+                        {exp.demo && (
+                          <a
+                            href={exp.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-violet border border-violet/30 hover:bg-violet/10 hover:border-violet/50 transition-all duration-200"
+                          >
+                            <ExternalLink className="h-3.5 w-3.5" />
+                            View App
+                          </a>
+                        )}
+                      </div>
                     </div>
-                  </CardHeader>
 
-                  {/* BOTTOM: description + buttons */}
-                  <CardContent>
-                    <p className="text-muted-foreground mb-4">
-                      {internship.description}
-                    </p>
+                    {/* Divider */}
+                    <div className="h-px" style={{ background: "var(--gradient-violet)", opacity: 0.12 }} />
 
-                    <div className="flex gap-3 flex-wrap">
-                      {internship.github && (
-                        <Button
-                          variant="outline"
-                          onClick={() =>
-                            window.open(internship.github, "_blank")
-                          }
-                        >
-                          View GitHub
-                        </Button>
-                      )}
+                    <p className="text-sm text-muted-foreground leading-relaxed">{exp.description}</p>
 
-                      {internship.demo && (
-                        <Button
-                          onClick={() =>
-                            window.open(internship.demo, "_blank")
-                          }
-                        >
-                          Live Demo
-                        </Button>
-                      )}
+                    {/* Highlights */}
+                    <div>
+                      <p className="text-xs font-semibold text-foreground/60 uppercase tracking-wider mb-2">Key highlights</p>
+                      <ul className="grid sm:grid-cols-2 gap-1.5">
+                        {exp.highlights.map((h) => (
+                          <li key={h} className="flex items-start gap-2 text-sm text-muted-foreground">
+                            <span className="mt-1.5 shrink-0 w-1 h-1 rounded-full bg-violet/70" />
+                            {h}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </CardContent>
-                </div>
-              </div>
-            </Card>
-          ))}
+
+                    {/* Metrics */}
+                    <div className="grid grid-cols-3 gap-3">
+                      {exp.metrics.map((m) => {
+                        const MetricIcon = m.icon;
+                        return (
+                          <div
+                            key={m.label}
+                            className="rounded-xl border border-border/50 p-3 text-center"
+                            style={{ background: "hsl(245 20% 12%)" }}
+                          >
+                            <MetricIcon className="h-4 w-4 text-violet/70 mx-auto mb-1" />
+                            <p className="font-display font-bold text-lg text-gradient leading-none">{m.value}</p>
+                            <p className="text-[10px] text-muted-foreground/70 mt-0.5 font-mono tracking-wide">{m.label}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* Tech chips */}
+                    <div>
+                      <p className="text-xs font-semibold text-foreground/60 uppercase tracking-wider mb-2">Tech stack</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {exp.techs.map((tech) => (
+                          <span key={tech} className="badge-tech">{tech}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </MotionCard>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* MODAL: clicking background or Close closes it */}
+      {/* Video modal */}
       {activeVideoId && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
           onClick={() => setActiveVideoId(null)}
         >
           <div
-            className="relative w-full max-w-4xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl"
+            className="relative w-full max-w-4xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setActiveVideoId(null)}
-              className="absolute -top-10 right-0 text-sm text-white/80 hover:text-white px-3 py-1 rounded-full border border-white/40 bg-black/40 backdrop-blur-sm"
+              className="absolute top-3 right-3 z-10 p-1.5 text-white/70 hover:text-white bg-black/50 rounded-lg backdrop-blur-sm transition-colors"
             >
-              Close
+              <X className="h-4 w-4" />
             </button>
-
             <iframe
               className="w-full h-full"
               src={`https://www.youtube.com/embed/${activeVideoId}?autoplay=1`}
-              title="Internship demo video"
+              title="Demo video"
               loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
           </div>

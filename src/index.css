@@ -234,4 +234,30 @@
     position: relative;
     z-index: 1;
   }
+
+  /* ── Tech badge chip ── */
+  .badge-tech {
+    @apply inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold tracking-wide;
+    color: hsl(var(--violet));
+    background: hsl(var(--violet-dim) / 0.5);
+    border: 1px solid hsl(var(--violet) / 0.25);
+  }
+
+  /* ── Section label (small uppercase tag above headings) ── */
+  .section-label {
+    @apply inline-flex items-center gap-2 text-xs font-mono font-semibold tracking-[0.18em] uppercase;
+    color: hsl(var(--violet));
+  }
+
+  /* ── Decorative gradient line beneath section headings ── */
+  .section-heading-line {
+    @apply mt-4 h-px w-16 mx-auto rounded-full;
+    background: var(--gradient-violet);
+  }
+
+  /* ── Top accent stripe on cards (visible on hover) ── */
+  .card-top-accent {
+    @apply absolute top-0 left-0 right-0 h-px rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300;
+    background: var(--gradient-violet);
+  }
 }
