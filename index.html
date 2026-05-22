@@ -25,6 +25,27 @@
       gtag('js', new Date());
       gtag('config', 'G-SJ242960WE');
     </script>
+
+    <!-- Portfolio visit notifications via ntfy.sh -->
+    <script>
+      (function () {
+        try {
+          var ref = document.referrer ? document.referrer : 'Direct';
+          var ua  = navigator.userAgent;
+          var isMobile = /Mobi|Android/i.test(ua);
+          fetch('https://ntfy.sh/oussama-portfolio-m3thn4n1-2619', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              title: '👀 New Portfolio Visit',
+              message: 'Page: ' + window.location.pathname + '\nFrom: ' + ref + '\nDevice: ' + (isMobile ? 'Mobile' : 'Desktop'),
+              priority: 3,
+              tags: ['eyes']
+            })
+          });
+        } catch (e) {}
+      })();
+    </script>
   </head>
 
   <body>
