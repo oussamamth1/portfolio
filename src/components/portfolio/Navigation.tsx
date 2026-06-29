@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, User, Briefcase, GraduationCap, Wrench, Heart, Users } from "lucide-react";
+import { Menu, X, User, Briefcase, FolderGit2, GraduationCap, Wrench, Heart, Users, Youtube } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navigation = () => {
@@ -9,11 +9,12 @@ const Navigation = () => {
 
   const navItems = [
     { icon: User,          label: "About",      href: "#about",       id: "about"       },
-    { icon: Briefcase,     label: "Projects",   href: "#projects",    id: "projects"    },
+    { icon: FolderGit2,    label: "Projects",   href: "#projects",    id: "projects"    },
     { icon: Briefcase,     label: "Experience", href: "#internships", id: "internships" },
     { icon: GraduationCap, label: "Education",  href: "#education",   id: "education"   },
     { icon: Wrench,        label: "Toolkit",    href: "#languages",   id: "languages"   },
     { icon: Heart,         label: "Values",     href: "#motivation",  id: "motivation"  },
+    { icon: Youtube,       label: "Videos",     href: "#videos",      id: "videos"      },
     { icon: Users,         label: "Contact",    href: "#contact",     id: "contact"     },
   ];
 

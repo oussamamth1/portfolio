@@ -10,6 +10,7 @@ import {
   Shield,
   PlayCircle,
   Smartphone,
+  Dumbbell,
 } from "lucide-react";
 
 // Apple logo SVG
@@ -30,6 +31,32 @@ const ProjectsSection = () => {
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
 
   const projects = [
+    {
+      title: "AI Fitness Coach",
+      company: "Personal Project",
+      period: "2025",
+      location: "Tunisia",
+      description:
+        "A full AI-powered fitness app that puts a personal trainer, nutritionist and planner in your pocket. Snap a photo of your meal for instant calories & macros (vision AI), get AI-generated meal and workout plans with exercise demo clips, a smart daily planner that builds your routine and sets the alarms, and progress tracking with an AI projection of when you'll hit your goal.",
+      icon: Dumbbell,
+      category: "Mobile (Flutter + AI)",
+      technologies: ["Flutter", "Riverpod", "Firebase", "Firestore", "OpenRouter AI", "Vision AI", "fl_chart", "Local Notifications"],
+      highlights: [
+        "Meal photo → instant calories & macros via vision AI",
+        "AI meal & workout plans with real exercise photos and demo clips",
+        "Smart daily planner that schedules your routine and alarms automatically",
+        "Progress charts + AI projection of when you'll reach your goal",
+        "Conversational AI coach aware of your full profile",
+        "Multi-model fallback on free OpenRouter models — runs at zero inference cost",
+      ],
+      status: "In Progress",
+      github: "",
+      appStore: "",
+      playStore: "",
+      videoId: "H0Bsd7WaoW4",
+      imageUrl: "",
+      portrait: false,
+    },
     {
       title: "Sunshine Vacances",
       company: "Zenify",
@@ -157,12 +184,13 @@ const ProjectsSection = () => {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-2 text-primary mb-4">
-            <Briefcase className="h-6 w-6" />
-            <span className="text-sm uppercase tracking-wide">Portfolio</span>
-          </div>
-          <h2 className="text-4xl font-bold mb-4">Featured Projects</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <span className="section-label">
+            <Briefcase className="h-4 w-4" />
+            Portfolio
+          </span>
+          <h2 className="font-display text-4xl font-bold mt-3 tracking-tight">Featured Projects</h2>
+          <div className="section-heading-line" />
+          <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
             A selection of mobile projects delivered with Flutter, NestJS, Firebase and CI/CD.
           </p>
         </div>
@@ -213,6 +241,8 @@ const ProjectsSection = () => {
                         <img
                           src={project.imageUrl}
                           alt={`${project.title} preview`}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-52 object-cover group-hover:scale-[1.02] transition-transform duration-500"
                         />
                         <div className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/60 px-3 py-1 text-[11px] text-white backdrop-blur-sm">
@@ -317,6 +347,8 @@ const ProjectsSection = () => {
                     <img
                       src={project.imageUrl}
                       alt={`${project.title} preview`}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-auto max-h-80 object-contain rounded-xl group-hover:scale-[1.02] transition-transform duration-500 drop-shadow-xl"
                     />
                   </div>
@@ -334,7 +366,7 @@ const ProjectsSection = () => {
           onClick={() => setActiveVideoId(null)}
         >
           <div
-            className="relative w-full max-w-4xl aspect-video bg-black rounded-xl overflow-hidden shadow-2xl"
+            className="relative h-[85vh] max-h-[85vh] aspect-[9/16] bg-black rounded-xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <button

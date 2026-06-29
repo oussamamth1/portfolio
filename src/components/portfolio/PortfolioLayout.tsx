@@ -5,6 +5,7 @@ import InternshipsSection from "./InternshipsSection";
 import EducationSection from "./EducationSection";
 import LanguagesSection from "./LanguagesSection";
 import MotivationSection from "./MotivationSection";
+import VideosSection from "./VideosSection";
 import ContactSection from "./ContactSection";
 
 const PortfolioLayout = () => {
@@ -18,6 +19,7 @@ const PortfolioLayout = () => {
         <EducationSection />
         <LanguagesSection />
         <MotivationSection />
+        <VideosSection />
         <ContactSection />
       </main>
     </div>
