@@ -71,7 +71,7 @@ const CvPage = () => {
         </Link>
         <button
           onClick={() => window.print()}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-violet text-white text-sm font-semibold hover:bg-violet-bright transition-all shadow-glow"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-violet text-background text-sm font-semibold hover:bg-violet-bright transition-all shadow-glow"
         >
           <Printer className="h-4 w-4" />
           Save as PDF
@@ -84,7 +84,7 @@ const CvPage = () => {
 
           {/* ══ Header ══ */}
           <div className="cv-header relative px-10 py-10 overflow-hidden"
-            style={{ background: "linear-gradient(135deg, hsl(240 25% 10%) 0%, hsl(262 50% 18%) 100%)" }}>
+            style={{ background: "linear-gradient(135deg, hsl(24 14% 10%) 0%, hsl(30 60% 16%) 100%)" }}>
             {/* Subtle grid overlay */}
             <div className="absolute inset-0 opacity-10"
               style={{
@@ -98,14 +98,14 @@ const CvPage = () => {
                 src="/oussama-hero.png"
                 alt="Oussama Methnani"
                 className="w-24 h-24 rounded-2xl object-cover border-2 shrink-0"
-                style={{ borderColor: "hsl(262 83% 68% / 0.5)" }}
+                style={{ borderColor: "hsl(38 92% 50% / 0.5)" }}
               />
 
               <div className="flex-1">
                 <h1 className="text-3xl font-bold tracking-tight text-white" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
                   Oussama Methnani
                 </h1>
-                <p className="text-lg font-medium mt-0.5" style={{ color: "hsl(262 83% 78%)" }}>
+                <p className="text-lg font-medium mt-0.5" style={{ color: "hsl(42 96% 62%)" }}>
                   Mobile Developer — Flutter & NestJS
                 </p>
                 <p className="text-sm text-gray-300 mt-2 max-w-lg leading-relaxed">
@@ -125,7 +125,7 @@ const CvPage = () => {
                   { icon: Globe, text: "oussamamth1.github.io", href: "https://oussamamth1.github.io/oussama-methnani.github.io/" },
                 ].map(({ icon: Icon, text, href }) => (
                   <div key={text} className="flex items-center gap-2 text-gray-300">
-                    <Icon className="h-3.5 w-3.5 shrink-0" style={{ color: "hsl(262 83% 78%)" }} />
+                    <Icon className="h-3.5 w-3.5 shrink-0" style={{ color: "hsl(42 96% 62%)" }} />
                     {href ? (
                       <a href={href} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors truncate" style={{ fontSize: "0.75rem" }}>{text}</a>
                     ) : (
@@ -151,14 +151,14 @@ const CvPage = () => {
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <h3 className="font-bold text-gray-900" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{job.role}</h3>
-                        <p className="text-sm font-medium" style={{ color: "hsl(262 60% 50%)" }}>{job.company} · {job.location}</p>
+                        <p className="text-sm font-medium" style={{ color: "hsl(30 80% 40%)" }}>{job.company} · {job.location}</p>
                       </div>
                       <span className="text-xs font-mono text-gray-400 shrink-0 mt-0.5 bg-gray-50 px-2 py-1 rounded-md">{job.period}</span>
                     </div>
                     <ul className="mt-3 space-y-1.5">
                       {job.bullets.map((b) => (
                         <li key={b} className="flex gap-2.5 text-sm text-gray-600 leading-snug">
-                          <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "hsl(262 83% 68%)" }} />
+                          <span className="mt-1.5 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "hsl(38 92% 50%)" }} />
                           {b}
                         </li>
                       ))}
@@ -175,7 +175,7 @@ const CvPage = () => {
                     <div key={p.name} className="p-3 rounded-xl border border-gray-100 bg-gray-50/60">
                       <div className="flex items-center justify-between gap-2">
                         <span className="font-semibold text-gray-900 text-sm" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{p.name}</span>
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full text-white" style={{ background: "hsl(262 60% 55%)" }}>{p.tech}</span>
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-full" style={{ background: "hsl(30 85% 42%)", color: "hsl(26 45% 7%)" }}>{p.tech}</span>
                       </div>
                       <p className="text-xs text-gray-500 mt-1 leading-snug">{p.desc}</p>
                     </div>
@@ -215,7 +215,7 @@ const CvPage = () => {
                           <span
                             key={skill}
                             className="text-xs px-2 py-0.5 rounded-md font-medium"
-                            style={{ background: "hsl(262 60% 96%)", color: "hsl(262 60% 45%)", border: "1px solid hsl(262 60% 88%)" }}
+                            style={{ background: "hsl(38 80% 94%)", color: "hsl(28 80% 36%)", border: "1px solid hsl(36 70% 82%)" }}
                           >
                             {skill}
                           </span>
@@ -235,7 +235,7 @@ const CvPage = () => {
                       <span className="text-sm font-medium text-gray-700">{lang}</span>
                       <span
                         className="text-[10px] font-mono px-2 py-0.5 rounded-full"
-                        style={{ background: "hsl(262 60% 96%)", color: "hsl(262 60% 45%)" }}
+                        style={{ background: "hsl(38 80% 94%)", color: "hsl(28 80% 36%)" }}
                       >
                         {level}
                       </span>
@@ -250,7 +250,7 @@ const CvPage = () => {
                 <div className="mt-4 p-3 rounded-xl border border-gray-100 bg-white">
                   <p className="text-sm font-semibold text-gray-900" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>Ihsen Mhathbi</p>
                   <p className="text-xs text-gray-500 mt-0.5">Continuous Net</p>
-                  <a href="mailto:ihsen-Mhathbi@gmail.com" className="text-xs mt-1 block" style={{ color: "hsl(262 60% 50%)" }}>
+                  <a href="mailto:ihsen-Mhathbi@gmail.com" className="text-xs mt-1 block" style={{ color: "hsl(30 80% 40%)" }}>
                     ihsen-Mhathbi@gmail.com
                   </a>
                   <p className="text-xs text-gray-400 mt-0.5">+216 29-380-781</p>
@@ -263,7 +263,7 @@ const CvPage = () => {
           <div className="px-10 py-4 border-t border-gray-100 flex items-center justify-between">
             <span className="text-[10px] font-mono text-gray-300">oussamamth1.github.io/oussama-methnani.github.io</span>
             <div className="flex items-center gap-1">
-              <div className="w-1.5 h-1.5 rounded-full" style={{ background: "hsl(262 83% 68%)" }} />
+              <div className="w-1.5 h-1.5 rounded-full" style={{ background: "hsl(38 92% 50%)" }} />
               <span className="text-[10px] font-mono text-gray-300">Oussama Methnani · 2026</span>
             </div>
           </div>
@@ -339,7 +339,7 @@ const CvPage = () => {
 
 const SectionTitle = ({ icon, title }: { icon: React.ReactNode; title: string }) => (
   <div className="flex items-center gap-2 pb-2 border-b border-gray-100">
-    <span style={{ color: "hsl(262 60% 55%)" }}>{icon}</span>
+    <span style={{ color: "hsl(30 85% 42%)" }}>{icon}</span>
     <h2 className="text-sm font-bold uppercase tracking-widest text-gray-700" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
       {title}
     </h2>

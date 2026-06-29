@@ -48,15 +48,15 @@ const EducationSection = () => (
       className="absolute inset-0 pointer-events-none"
       style={{
         background: [
-          "radial-gradient(ellipse 60% 40% at 80% 20%, hsl(262 83% 68% / 0.07) 0%, transparent 70%)",
-          "radial-gradient(ellipse 50% 35% at 10% 85%, hsl(230 68% 62% / 0.06) 0%, transparent 65%)",
+          "radial-gradient(ellipse 60% 40% at 80% 20%, hsl(38 92% 50% / 0.07) 0%, transparent 70%)",
+          "radial-gradient(ellipse 50% 35% at 10% 85%, hsl(27 96% 61% / 0.06) 0%, transparent 65%)",
         ].join(", "),
       }}
     />
     <div
       className="absolute inset-0 pointer-events-none"
       style={{
-        backgroundImage: "radial-gradient(circle, hsl(262 83% 68% / 0.1) 1px, transparent 1px)",
+        backgroundImage: "radial-gradient(circle, hsl(38 92% 50% / 0.1) 1px, transparent 1px)",
         backgroundSize: "32px 32px",
         maskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 10%, transparent 100%)",
         WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 50%, black 10%, transparent 100%)",
@@ -94,7 +94,7 @@ const EducationSection = () => (
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-60px" }}
-            whileHover={{ y: -6, boxShadow: "0 24px 60px hsl(240 25% 2% / 0.7), 0 0 30px hsl(262 83% 68% / 0.1)" }}
+            whileHover={{ y: -6, boxShadow: "0 24px 60px hsl(20 28% 3% / 0.7), 0 0 30px hsl(38 92% 50% / 0.1)" }}
             className="group relative rounded-2xl border border-border/60 overflow-hidden transition-shadow duration-300"
             style={{
               background: "linear-gradient(135deg, hsl(243 22% 10%) 0%, hsl(245 20% 8%) 100%)",
@@ -112,7 +112,7 @@ const EducationSection = () => (
             {/* Watermark index */}
             <span
               className="absolute top-4 right-5 font-display font-bold text-7xl leading-none select-none pointer-events-none"
-              style={{ color: "hsl(262 83% 68% / 0.06)" }}
+              style={{ color: "hsl(38 92% 50% / 0.06)" }}
             >
               {String(index + 1).padStart(2, "0")}
             </span>
@@ -123,7 +123,7 @@ const EducationSection = () => (
                 <div className="flex items-start gap-3">
                   <div
                     className="mt-0.5 p-2.5 rounded-xl border border-violet/20 shrink-0"
-                    style={{ background: "hsl(262 83% 68% / 0.08)" }}
+                    style={{ background: "hsl(38 92% 50% / 0.08)" }}
                   >
                     <GraduationCap className="h-5 w-5 text-violet" />
                   </div>

@@ -80,7 +80,7 @@ const LanguagesSection = () => {
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: "radial-gradient(ellipse 55% 40% at 50% 0%, hsl(262 83% 68% / 0.07) 0%, transparent 70%)",
+            background: "radial-gradient(ellipse 55% 40% at 50% 0%, hsl(38 92% 50% / 0.07) 0%, transparent 70%)",
           }}
         />
 
@@ -140,7 +140,7 @@ const LanguagesSection = () => {
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-40px" }}
-                  whileHover={{ y: -4, boxShadow: "0 16px 40px hsl(240 25% 2% / 0.6), 0 0 20px hsl(262 83% 68% / 0.1)" }}
+                  whileHover={{ y: -4, boxShadow: "0 16px 40px hsl(20 28% 3% / 0.6), 0 0 20px hsl(38 92% 50% / 0.1)" }}
                   className={`group relative rounded-2xl border border-border/50 p-4 overflow-hidden transition-all duration-300 ${group.span}`}
                   style={{ background: "linear-gradient(135deg, hsl(243 22% 10%) 0%, hsl(245 20% 8%) 100%)" }}
                 >
@@ -153,7 +153,7 @@ const LanguagesSection = () => {
                   <div className="flex items-center gap-2 mb-3">
                     <div
                       className="p-1.5 rounded-lg border border-violet/20 group-hover:border-violet/40 transition-colors duration-300"
-                      style={{ background: "hsl(262 83% 68% / 0.08)" }}
+                      style={{ background: "hsl(38 92% 50% / 0.08)" }}
                     >
                       <Icon className="h-3.5 w-3.5 text-violet group-hover:text-violet-bright transition-colors" />
                     </div>
@@ -203,7 +203,7 @@ const LanguagesSection = () => {
                 <div
                   key={track.label}
                   className="group rounded-2xl border border-violet/20 p-4 relative overflow-hidden"
-                  style={{ background: "linear-gradient(135deg, hsl(262 83% 68% / 0.06) 0%, hsl(230 68% 62% / 0.04) 100%)" }}
+                  style={{ background: "linear-gradient(135deg, hsl(38 92% 50% / 0.06) 0%, hsl(27 96% 61% / 0.04) 100%)" }}
                 >
                   <div className="card-top-accent" />
                   <div className="flex items-center gap-2 mb-2">

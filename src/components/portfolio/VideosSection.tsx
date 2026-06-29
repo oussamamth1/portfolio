@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PlayCircle, Youtube } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
@@ -19,6 +19,19 @@ const videos = [
 
 const VideosSection = () => {
   const [activeId, setActiveId] = useState<string | null>(null);
+
+  // Lock body scroll and enable Escape-to-close while the lightbox is open
+  useEffect(() => {
+    if (!activeId) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setActiveId(null); };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [activeId]);
 
   return (
     <section id="videos" className="py-24">
@@ -64,7 +77,7 @@ const VideosSection = () => {
                 {/* Play overlay */}
                 <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition-colors duration-300">
                   <div className="w-14 h-14 rounded-full bg-primary/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <PlayCircle className="h-7 w-7 text-white" />
+                    <PlayCircle className="h-7 w-7 text-background" />
                   </div>
                 </div>
               </div>
@@ -88,8 +101,11 @@ const VideosSection = () => {
       {/* Lightbox */}
       {activeId && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
           onClick={() => setActiveId(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Video player"
         >
           <div
             className={`relative bg-black rounded-xl overflow-hidden shadow-2xl ${

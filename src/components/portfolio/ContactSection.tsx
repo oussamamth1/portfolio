@@ -44,8 +44,8 @@ const ContactSection = () => {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: [
-            "radial-gradient(ellipse 70% 55% at 50% 100%, hsl(262 83% 68% / 0.1) 0%, transparent 70%)",
-            "radial-gradient(ellipse 45% 35% at 15% 20%, hsl(230 68% 62% / 0.06) 0%, transparent 65%)",
+            "radial-gradient(ellipse 70% 55% at 50% 100%, hsl(38 92% 50% / 0.1) 0%, transparent 70%)",
+            "radial-gradient(ellipse 45% 35% at 15% 20%, hsl(27 96% 61% / 0.06) 0%, transparent 65%)",
           ].join(", "),
         }}
       />
@@ -76,12 +76,12 @@ const ContactSection = () => {
             {/* Primary — open contact form */}
             <motion.button
               onClick={() => setContactFormOpen(true)}
-              className="group relative flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-semibold text-white overflow-hidden"
+              className="group relative flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-semibold text-background overflow-hidden"
               style={{
-                background: "linear-gradient(135deg, hsl(262 83% 64%) 0%, hsl(230 68% 58%) 100%)",
-                boxShadow: "0 0 22px hsl(262 83% 68% / 0.3), inset 0 1px 0 hsl(0 0% 100% / 0.12)",
+                background: "linear-gradient(135deg, hsl(38 92% 48%) 0%, hsl(27 96% 58%) 100%)",
+                boxShadow: "0 0 22px hsl(38 92% 50% / 0.3), inset 0 1px 0 hsl(0 0% 100% / 0.12)",
               }}
-              whileHover={{ scale: 1.04, boxShadow: "0 0 36px hsl(262 83% 68% / 0.5), inset 0 1px 0 hsl(0 0% 100% / 0.15)" }}
+              whileHover={{ scale: 1.04, boxShadow: "0 0 36px hsl(38 92% 50% / 0.5), inset 0 1px 0 hsl(0 0% 100% / 0.15)" }}
               whileTap={{ scale: 0.96 }}
               transition={{ duration: 0.15 }}
             >
@@ -97,12 +97,12 @@ const ContactSection = () => {
               rel="noopener noreferrer"
               className="group relative flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-semibold text-violet overflow-hidden"
               style={{
-                background: "hsl(240 25% 7%)",
-                boxShadow: "0 0 0 1.5px hsl(262 83% 68% / 0.35)",
+                background: "hsl(24 14% 7%)",
+                boxShadow: "0 0 0 1.5px hsl(38 92% 50% / 0.35)",
               }}
               whileHover={{
                 scale: 1.04,
-                boxShadow: "0 0 0 1.5px hsl(262 83% 68% / 0.7), 0 0 24px hsl(262 83% 68% / 0.2)",
+                boxShadow: "0 0 0 1.5px hsl(38 92% 50% / 0.7), 0 0 24px hsl(38 92% 50% / 0.2)",
               }}
               whileTap={{ scale: 0.96 }}
               transition={{ duration: 0.15 }}

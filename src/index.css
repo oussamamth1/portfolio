@@ -4,46 +4,48 @@
 
 /*
   Obsidian Agency — Design Token System
-  Philosophy: deep space dark + electric violet, premium mobile developer portfolio
+  Philosophy: warm charcoal dark + molten amber, premium mobile developer portfolio
   Dark-only. No light mode.
+  Note: token names below keep the historical "violet"/"indigo" labels for
+  backwards compatibility, but now resolve to amber/orange values.
 */
 
 @layer base {
   :root {
-    /* ── Backgrounds ── */
-    --background:          240 25% 4%;     /* #070714 — page bg */
-    --card:                243 22% 8%;     /* #10101f — card surfaces */
-    --popover:             243 22% 8%;
+    /* ── Backgrounds (warm charcoal) ── */
+    --background:          24 12% 4%;      /* #0C0A09 — page bg */
+    --card:                26 12% 8%;      /* warm surface */
+    --popover:             26 12% 8%;
 
-    /* ── Text ── */
-    --foreground:          0 0% 95%;       /* #f2f2f2 — primary text */
-    --card-foreground:     0 0% 95%;
-    --popover-foreground:  0 0% 95%;
+    /* ── Text (warm white) ── */
+    --foreground:          40 20% 96%;     /* warm near-white */
+    --card-foreground:     40 20% 96%;
+    --popover-foreground:  40 20% 96%;
 
-    /* ── Primary: Electric Violet ── */
-    --primary:             262 83% 68%;    /* #a855f7 region */
-    --primary-foreground:  0 0% 100%;
+    /* ── Primary: Molten Amber ── */
+    --primary:             38 92% 50%;     /* #F59E0B */
+    --primary-foreground:  26 45% 7%;      /* dark warm — readable on amber */
 
     /* ── Secondary: Elevated surfaces ── */
-    --secondary:           245 18% 14%;
-    --secondary-foreground:0 0% 92%;
+    --secondary:           26 12% 14%;
+    --secondary-foreground:40 15% 92%;
 
     /* ── Muted ── */
-    --muted:               243 16% 12%;
-    --muted-foreground:    240 12% 58%;    /* #8888a0 — subdued text */
+    --muted:               26 10% 12%;
+    --muted-foreground:    32 10% 60%;     /* warm subdued text */
 
-    /* ── Accent: Indigo-blue ── */
-    --accent:              230 68% 62%;    /* #5b7be8 region */
-    --accent-foreground:   0 0% 100%;
+    /* ── Accent: Orange ── */
+    --accent:              27 96% 61%;     /* #FB923C */
+    --accent-foreground:   26 45% 7%;
 
     /* ── Status ── */
     --destructive:         0 80% 58%;
     --destructive-foreground: 0 0% 100%;
 
     /* ── Borders & Inputs ── */
-    --border:              243 20% 17%;
-    --input:               243 20% 14%;
-    --ring:                262 83% 68%;
+    --border:              28 14% 17%;
+    --input:               28 14% 14%;
+    --ring:                38 92% 50%;
 
     /* ── Radius ── */
     --radius: 0.75rem;
@@ -52,36 +54,36 @@
        Custom Portfolio Tokens
     ───────────────────────────────────────── */
 
-    /* Violet scale */
-    --violet:              262 83% 68%;
-    --violet-bright:       262 83% 78%;
-    --violet-dim:          262 60% 20%;    /* tinted bg for badges */
-    --violet-glow:         262 83% 68%;
+    /* Amber scale (legacy "violet" names) */
+    --violet:              38 92% 50%;
+    --violet-bright:       42 96% 62%;
+    --violet-dim:          32 70% 18%;     /* tinted bg for badges */
+    --violet-glow:         38 92% 50%;
 
-    /* Indigo scale */
-    --indigo:              230 68% 62%;
-    --indigo-dim:          230 50% 18%;
+    /* Orange scale (legacy "indigo" names) */
+    --indigo:              27 96% 61%;
+    --indigo-dim:          27 60% 16%;
 
     /* Surface scale */
-    --surface-base:        240 25% 4%;
-    --surface-card:        243 22% 8%;
-    --surface-elevated:    245 20% 12%;
-    --surface-hover:       247 18% 16%;
+    --surface-base:        24 12% 4%;
+    --surface-card:        26 12% 8%;
+    --surface-elevated:    28 12% 12%;
+    --surface-hover:       30 12% 16%;
 
     /* Glass morphism */
-    --glass-bg:            243 22% 10%;    /* use with opacity: 0.75 */
-    --glass-border:        262 40% 40%;    /* use with opacity: 0.2 */
+    --glass-bg:            26 12% 10%;     /* use with opacity: 0.75 */
+    --glass-border:        38 60% 45%;     /* use with opacity: 0.2 */
 
     /* Gradients */
-    --gradient-violet: linear-gradient(135deg, hsl(262 83% 68%), hsl(230 68% 62%));
-    --gradient-surface: linear-gradient(180deg, hsl(243 22% 8%), hsl(240 25% 4%));
-    --gradient-hero: radial-gradient(ellipse at 60% 40%, hsl(262 83% 68% / 0.15) 0%, transparent 60%);
+    --gradient-violet: linear-gradient(135deg, hsl(38 92% 50%), hsl(27 96% 61%));
+    --gradient-surface: linear-gradient(180deg, hsl(26 12% 8%), hsl(24 12% 4%));
+    --gradient-hero: radial-gradient(ellipse at 60% 40%, hsl(38 92% 50% / 0.15) 0%, transparent 60%);
 
     /* Shadows */
-    --shadow-glow:     0 0 30px hsl(262 83% 68% / 0.25);
-    --shadow-glow-lg:  0 0 60px hsl(262 83% 68% / 0.35), 0 0 120px hsl(262 83% 68% / 0.15);
-    --shadow-card:     0 8px 40px hsl(240 25% 2% / 0.6);
-    --shadow-elevated: 0 16px 60px hsl(240 25% 2% / 0.8);
+    --shadow-glow:     0 0 30px hsl(38 92% 50% / 0.25);
+    --shadow-glow-lg:  0 0 60px hsl(38 92% 50% / 0.35), 0 0 120px hsl(38 92% 50% / 0.15);
+    --shadow-card:     0 8px 40px hsl(20 28% 2% / 0.6);
+    --shadow-elevated: 0 16px 60px hsl(20 28% 2% / 0.8);
 
     /* ── Typography ── */
     --font-display: 'Space Grotesk', system-ui, sans-serif;
@@ -136,14 +138,14 @@
     --max-width-page:    1400px;
 
     /* Sidebar kept for shadcn compatibility */
-    --sidebar-background:         243 22% 8%;
-    --sidebar-foreground:         0 0% 95%;
-    --sidebar-primary:            262 83% 68%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent:             245 18% 14%;
-    --sidebar-accent-foreground:  0 0% 92%;
-    --sidebar-border:             243 20% 17%;
-    --sidebar-ring:               262 83% 68%;
+    --sidebar-background:         26 12% 8%;
+    --sidebar-foreground:         40 20% 96%;
+    --sidebar-primary:            38 92% 50%;
+    --sidebar-primary-foreground: 26 45% 7%;
+    --sidebar-accent:             26 12% 14%;
+    --sidebar-accent-foreground:  40 15% 92%;
+    --sidebar-border:             28 14% 17%;
+    --sidebar-ring:               38 92% 50%;
   }
 }
 

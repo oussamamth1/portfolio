@@ -42,8 +42,8 @@ const InternshipsSection = () => {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: [
-            "radial-gradient(ellipse 55% 40% at 20% 30%, hsl(262 83% 68% / 0.07) 0%, transparent 70%)",
-            "radial-gradient(ellipse 40% 35% at 85% 75%, hsl(230 68% 62% / 0.06) 0%, transparent 65%)",
+            "radial-gradient(ellipse 55% 40% at 20% 30%, hsl(38 92% 50% / 0.07) 0%, transparent 70%)",
+            "radial-gradient(ellipse 40% 35% at 85% 75%, hsl(27 96% 61% / 0.06) 0%, transparent 65%)",
           ].join(", "),
         }}
       />
@@ -68,7 +68,7 @@ const InternshipsSection = () => {
         {/* Experience entries */}
         <div className="relative">
           {/* Timeline spine */}
-          <div className="absolute left-6 top-0 bottom-0 w-px hidden md:block" style={{ background: "linear-gradient(to bottom, hsl(262 83% 68% / 0.6), hsl(262 83% 68% / 0.05))" }} />
+          <div className="absolute left-6 top-0 bottom-0 w-px hidden md:block" style={{ background: "linear-gradient(to bottom, hsl(38 92% 50% / 0.6), hsl(38 92% 50% / 0.05))" }} />
 
           <div className="space-y-8">
             {experiences.map((exp, index) => (
@@ -89,7 +89,7 @@ const InternshipsSection = () => {
                 </div>
 
                 <MotionCard
-                  whileHover={{ y: -4, boxShadow: "0 24px 60px hsl(240 25% 2% / 0.7), 0 0 30px hsl(262 83% 68% / 0.1)" }}
+                  whileHover={{ y: -4, boxShadow: "0 24px 60px hsl(20 28% 3% / 0.7), 0 0 30px hsl(38 92% 50% / 0.1)" }}
                   className="group relative rounded-2xl border border-border/60 overflow-hidden transition-shadow duration-300"
                   style={{ background: "linear-gradient(135deg, hsl(243 22% 10%) 0%, hsl(245 20% 8%) 100%)" }}
                 >

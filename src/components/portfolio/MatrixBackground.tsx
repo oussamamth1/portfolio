@@ -120,18 +120,18 @@ const MatrixBackground = () => {
         if (distFromHead === 0) {
           // Head: bright white
           ctx.fillStyle = "#ffffff";
-          ctx.shadowColor = "hsl(262,83%,90%)";
+          ctx.shadowColor = "hsl(42,95%,80%)";
           ctx.shadowBlur = 12;
         } else if (distFromHead < trail) {
           // Trail: fading violet
           const fade = 1 - distFromHead / trail;
           const l = Math.round(68 * fade + 20);
-          ctx.fillStyle = `hsl(262,83%,${l}%)`;
-          ctx.shadowColor = `hsl(262,83%,${l}%)`;
+          ctx.fillStyle = `hsl(38,92%,${l}%)`;
+          ctx.shadowColor = `hsl(38,92%,${l}%)`;
           ctx.shadowBlur = fade * 8;
         } else {
           // Dim background chars
-          ctx.fillStyle = "hsl(262,40%,18%)";
+          ctx.fillStyle = "hsl(32,60%,18%)";
           ctx.shadowBlur = 0;
         }
 

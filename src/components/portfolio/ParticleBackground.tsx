@@ -58,7 +58,7 @@ const ParticleBackground = () => {
 
     const mat = new THREE.PointsMaterial({
       size: 0.06,
-      color: new THREE.Color(0xa855f7), // electric violet
+      color: new THREE.Color(0xf59e0b), // electric violet
       transparent: true,
       opacity: 0.7,
       sizeAttenuation: true,
@@ -69,7 +69,7 @@ const ParticleBackground = () => {
 
     // Subtle connection lines between nearby particles
     const lineMat = new THREE.LineBasicMaterial({
-      color: 0xa855f7,
+      color: 0xf59e0b,
       transparent: true,
       opacity: 0.08,
     });

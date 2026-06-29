@@ -57,7 +57,7 @@ const Navigation = () => {
         className="fixed top-0 left-0 z-[60] h-[2px] pointer-events-none"
         style={{
           width: `${scrollProgress}%`,
-          background: "linear-gradient(to right, hsl(262 83% 68%), hsl(230 68% 62%))",
+          background: "linear-gradient(to right, hsl(38 92% 50%), hsl(27 96% 61%))",
           transition: "width 100ms linear",
         }}
       />
@@ -90,7 +90,7 @@ const Navigation = () => {
                     onClick={() => scrollTo(href, id)}
                     className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
                       active
-                        ? "text-white bg-violet shadow-[0_0_14px_hsl(262_83%_68%/0.45)]"
+                        ? "text-background bg-violet shadow-[0_0_14px_hsl(38_92%_50%/0.45)]"
                         : "text-muted-foreground hover:text-foreground hover:bg-white/[0.06]"
                     }`}
                   >

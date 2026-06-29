@@ -61,9 +61,9 @@ const HeroSection = () => {
           className="absolute inset-0 pointer-events-none"
           style={{
             background: [
-              "radial-gradient(ellipse 80% 60% at 65% 35%, hsl(262 83% 68% / 0.17) 0%, transparent 70%)",
-              "radial-gradient(ellipse 55% 45% at 10% 80%, hsl(230 68% 62% / 0.12) 0%, transparent 65%)",
-              "radial-gradient(ellipse 35% 28% at 22% 10%, hsl(262 83% 68% / 0.08) 0%, transparent 60%)",
+              "radial-gradient(ellipse 80% 60% at 65% 35%, hsl(38 92% 50% / 0.17) 0%, transparent 70%)",
+              "radial-gradient(ellipse 55% 45% at 10% 80%, hsl(27 96% 61% / 0.12) 0%, transparent 65%)",
+              "radial-gradient(ellipse 35% 28% at 22% 10%, hsl(38 92% 50% / 0.08) 0%, transparent 60%)",
             ].join(", "),
           }}
         />
@@ -72,7 +72,7 @@ const HeroSection = () => {
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            backgroundImage: "radial-gradient(circle, hsl(262 83% 68% / 0.18) 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, hsl(38 92% 50% / 0.18) 1px, transparent 1px)",
             backgroundSize: "30px 30px",
             maskImage: "radial-gradient(ellipse 90% 80% at 50% 50%, black 15%, transparent 100%)",
             WebkitMaskImage: "radial-gradient(ellipse 90% 80% at 50% 50%, black 15%, transparent 100%)",
@@ -153,12 +153,12 @@ const HeroSection = () => {
                 {/* Primary — Download CV */}
                 <motion.button
                   onClick={() => setCvModalOpen(true)}
-                  className="group relative flex items-center gap-2.5 px-5 sm:px-7 py-3 sm:py-3.5 rounded-full text-sm font-semibold text-white overflow-hidden"
+                  className="group relative flex items-center gap-2.5 px-5 sm:px-7 py-3 sm:py-3.5 rounded-full text-sm font-semibold text-background overflow-hidden"
                   style={{
-                    background: "linear-gradient(135deg, hsl(262 83% 64%) 0%, hsl(230 68% 58%) 100%)",
-                    boxShadow: "0 0 22px hsl(262 83% 68% / 0.3), inset 0 1px 0 hsl(0 0% 100% / 0.12)",
+                    background: "linear-gradient(135deg, hsl(38 92% 48%) 0%, hsl(27 96% 58%) 100%)",
+                    boxShadow: "0 0 22px hsl(38 92% 50% / 0.3), inset 0 1px 0 hsl(0 0% 100% / 0.12)",
                   }}
-                  whileHover={{ scale: 1.04, boxShadow: "0 0 36px hsl(262 83% 68% / 0.5), inset 0 1px 0 hsl(0 0% 100% / 0.15)" }}
+                  whileHover={{ scale: 1.04, boxShadow: "0 0 36px hsl(38 92% 50% / 0.5), inset 0 1px 0 hsl(0 0% 100% / 0.15)" }}
                   whileTap={{ scale: 0.96 }}
                   transition={{ duration: 0.15 }}
                 >
@@ -172,19 +172,19 @@ const HeroSection = () => {
                   onClick={() => setContactFormOpen(true)}
                   className="group relative flex items-center gap-2.5 px-5 sm:px-7 py-3 sm:py-3.5 rounded-full text-sm font-semibold text-violet overflow-hidden"
                   style={{
-                    background: "hsl(240 25% 7%)",
-                    boxShadow: "0 0 0 1.5px hsl(262 83% 68% / 0.35)",
+                    background: "hsl(24 14% 7%)",
+                    boxShadow: "0 0 0 1.5px hsl(38 92% 50% / 0.35)",
                   }}
                   whileHover={{
                     scale: 1.04,
-                    boxShadow: "0 0 0 1.5px hsl(262 83% 68% / 0.7), 0 0 24px hsl(262 83% 68% / 0.2)",
+                    boxShadow: "0 0 0 1.5px hsl(38 92% 50% / 0.7), 0 0 24px hsl(38 92% 50% / 0.2)",
                   }}
                   whileTap={{ scale: 0.96 }}
                   transition={{ duration: 0.15 }}
                 >
                   <span
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                    style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, hsl(262 83% 68% / 0.1) 0%, transparent 70%)" }}
+                    style={{ background: "radial-gradient(ellipse 80% 60% at 50% 50%, hsl(38 92% 50% / 0.1) 0%, transparent 70%)" }}
                   />
                   <Mail className="relative h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-px" />
                   <span className="relative">Get in Touch</span>
@@ -238,12 +238,12 @@ const HeroSection = () => {
               {!prefersReduced && (
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                   <svg viewBox="0 0 440 440" className="absolute w-[260px] h-[260px] sm:w-[360px] sm:h-[360px] lg:w-[440px] lg:h-[440px] opacity-60">
-                    <circle cx="220" cy="220" r="213" fill="none" stroke="hsl(262 83% 68% / 0.12)" strokeWidth="1" strokeDasharray="5 8" />
-                    <circle cx="220" cy="220" r="178" fill="none" stroke="hsl(230 68% 62% / 0.07)" strokeWidth="1" />
+                    <circle cx="220" cy="220" r="213" fill="none" stroke="hsl(38 92% 50% / 0.12)" strokeWidth="1" strokeDasharray="5 8" />
+                    <circle cx="220" cy="220" r="178" fill="none" stroke="hsl(27 96% 61% / 0.07)" strokeWidth="1" />
                     <circle
                       cx="220" cy="220" r="213"
                       fill="none"
-                      stroke="hsl(262 83% 68% / 0.55)"
+                      stroke="hsl(38 92% 50% / 0.55)"
                       strokeWidth="1.5"
                       strokeDasharray="68 348"
                       className="animate-spin-slow"
@@ -252,7 +252,7 @@ const HeroSection = () => {
                     <circle
                       cx="220" cy="220" r="178"
                       fill="none"
-                      stroke="hsl(230 68% 62% / 0.45)"
+                      stroke="hsl(27 96% 61% / 0.45)"
                       strokeWidth="1"
                       strokeDasharray="40 278"
                       style={{ transformOrigin: "220px 220px", animation: "spin-slow 15s linear infinite reverse" }}
@@ -263,14 +263,14 @@ const HeroSection = () => {
 
               <div
                 className="absolute inset-0 rounded-full blur-3xl opacity-25"
-                style={{ background: "radial-gradient(circle, hsl(262 83% 68%) 0%, transparent 65%)" }}
+                style={{ background: "radial-gradient(circle, hsl(38 92% 50%) 0%, transparent 65%)" }}
               />
 
               <motion.img
                 src="/oussama-hero.png"
                 alt="Oussama Methnani — Mobile Developer"
                 className="relative w-44 h-44 sm:w-60 sm:h-60 lg:w-[22rem] lg:h-[22rem] rounded-full object-cover shadow-glow-lg"
-                style={{ border: "2.5px solid hsl(262 83% 68% / 0.4)" }}
+                style={{ border: "2.5px solid hsl(38 92% 50% / 0.4)" }}
                 animate={prefersReduced ? {} : { y: [0, -10, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               />
@@ -281,7 +281,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, x: -24 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1, duration: 0.6 }}
-                whileHover={{ scale: 1.06, boxShadow: "0 0 24px hsl(262 83% 68% / 0.2)" }}
+                whileHover={{ scale: 1.06, boxShadow: "0 0 24px hsl(38 92% 50% / 0.2)" }}
               >
                 <div className="flex items-center gap-1.5 mb-1">
                   <Rocket className="h-3 w-3 text-violet/80" />
@@ -303,7 +303,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, x: 24 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.2, duration: 0.6 }}
-                whileHover={{ scale: 1.06, boxShadow: "0 0 24px hsl(262 83% 68% / 0.2)" }}
+                whileHover={{ scale: 1.06, boxShadow: "0 0 24px hsl(38 92% 50% / 0.2)" }}
               >
                 <div className="flex items-center gap-1.5 mb-1">
                   <Clock className="h-3 w-3 text-violet/80" />
@@ -325,7 +325,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, x: -24 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.4, duration: 0.6 }}
-                whileHover={{ scale: 1.06, boxShadow: "0 0 24px hsl(262 83% 68% / 0.2)" }}
+                whileHover={{ scale: 1.06, boxShadow: "0 0 24px hsl(38 92% 50% / 0.2)" }}
               >
                 <div className="flex items-center gap-1.5 mb-1">
                   <Layers className="h-3 w-3 text-violet/80" />
@@ -347,7 +347,7 @@ const HeroSection = () => {
                 initial={{ opacity: 0, x: 24 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.6, duration: 0.6 }}
-                whileHover={{ scale: 1.06, boxShadow: "0 0 24px hsl(262 83% 68% / 0.2)" }}
+                whileHover={{ scale: 1.06, boxShadow: "0 0 24px hsl(38 92% 50% / 0.2)" }}
               >
                 <div className="flex items-center gap-1.5 mb-1">
                   <Code2 className="h-3 w-3 text-violet/80" />

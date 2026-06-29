@@ -80,8 +80,8 @@ const MotivationSection = () => (
       className="absolute inset-0 pointer-events-none"
       style={{
         background: [
-          "radial-gradient(ellipse 60% 45% at 15% 20%, hsl(262 83% 68% / 0.07) 0%, transparent 70%)",
-          "radial-gradient(ellipse 50% 40% at 85% 80%, hsl(230 68% 62% / 0.06) 0%, transparent 65%)",
+          "radial-gradient(ellipse 60% 45% at 15% 20%, hsl(38 92% 50% / 0.07) 0%, transparent 70%)",
+          "radial-gradient(ellipse 50% 40% at 85% 80%, hsl(27 96% 61% / 0.06) 0%, transparent 65%)",
         ].join(", "),
       }}
     />
@@ -118,7 +118,7 @@ const MotivationSection = () => (
         {/* Watermark quote mark */}
         <span
           className="absolute top-2 right-6 font-display font-bold text-[8rem] leading-none select-none pointer-events-none"
-          style={{ color: "hsl(262 83% 68% / 0.05)" }}
+          style={{ color: "hsl(38 92% 50% / 0.05)" }}
         >
           "
         </span>
@@ -164,7 +164,7 @@ const MotivationSection = () => (
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
-              whileHover={{ y: -4, boxShadow: "0 16px 40px hsl(240 25% 2% / 0.6), 0 0 20px hsl(262 83% 68% / 0.08)" }}
+              whileHover={{ y: -4, boxShadow: "0 16px 40px hsl(20 28% 3% / 0.6), 0 0 20px hsl(38 92% 50% / 0.08)" }}
               className="group relative rounded-2xl border border-border/60 p-5 overflow-hidden transition-shadow duration-300"
               style={{ background: "linear-gradient(135deg, hsl(243 22% 10%) 0%, hsl(245 20% 8%) 100%)" }}
             >
@@ -208,7 +208,7 @@ const MotivationSection = () => (
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
-              whileHover={{ y: -4, boxShadow: "0 16px 40px hsl(240 25% 2% / 0.6), 0 0 20px hsl(262 83% 68% / 0.08)" }}
+              whileHover={{ y: -4, boxShadow: "0 16px 40px hsl(20 28% 3% / 0.6), 0 0 20px hsl(38 92% 50% / 0.08)" }}
               className="group relative rounded-2xl border border-border/60 p-5 overflow-hidden transition-shadow duration-300"
               style={{ background: "linear-gradient(135deg, hsl(243 22% 10%) 0%, hsl(245 20% 8%) 100%)" }}
             >
@@ -234,7 +234,7 @@ const MotivationSection = () => (
       {/* Closing quote */}
       <motion.div
         className="relative rounded-2xl border border-violet/20 p-8 text-center overflow-hidden"
-        style={{ background: "linear-gradient(135deg, hsl(262 83% 68% / 0.06) 0%, hsl(230 68% 62% / 0.04) 100%)" }}
+        style={{ background: "linear-gradient(135deg, hsl(38 92% 50% / 0.06) 0%, hsl(27 96% 61% / 0.04) 100%)" }}
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}

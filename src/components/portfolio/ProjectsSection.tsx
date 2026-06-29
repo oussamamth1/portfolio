@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   Briefcase,
@@ -29,6 +29,19 @@ const PlayStoreIcon = () => (
 
 const ProjectsSection = () => {
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
+
+  // Lock body scroll and enable Escape-to-close while the demo modal is open
+  useEffect(() => {
+    if (!activeVideoId) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setActiveVideoId(null); };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [activeVideoId]);
 
   const projects = [
     {
@@ -362,8 +375,11 @@ const ProjectsSection = () => {
       {/* Video modal (same behavior as internships, click outside to close) */}
       {activeVideoId && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
           onClick={() => setActiveVideoId(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Project demo video"
         >
           <div
             className="relative h-[85vh] max-h-[85vh] aspect-[9/16] bg-black rounded-xl overflow-hidden shadow-2xl"

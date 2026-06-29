@@ -46,7 +46,7 @@ const CvDownloadModal = ({ onClose }: CvDownloadModalProps) => {
           {/* Ambient glow */}
           <div
             className="absolute -top-20 left-1/2 -translate-x-1/2 w-64 h-32 rounded-full blur-3xl opacity-20 pointer-events-none"
-            style={{ background: "hsl(262 83% 68%)" }}
+            style={{ background: "hsl(38 92% 50%)" }}
           />
 
           <div className="p-6 space-y-6">
@@ -123,7 +123,7 @@ const CvDownloadModal = ({ onClose }: CvDownloadModalProps) => {
                 className="flex-1"
               >
                 <Button
-                  className="w-full bg-violet hover:bg-violet-bright text-white font-semibold shadow-glow transition-all duration-normal"
+                  className="w-full bg-violet hover:bg-violet-bright text-background font-semibold shadow-glow transition-all duration-normal"
                 >
                   <Download className="mr-2 h-4 w-4" />
                   Download PDF
