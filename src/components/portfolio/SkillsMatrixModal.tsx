@@ -1,94 +1,60 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
-import { Shield, Server, Code, Bug } from 'lucide-react';
+import { Code, Server } from 'lucide-react';
+import { getSkills, type SkillContent } from "@/lib/api";
 
 interface SkillsMatrixModalProps {
   onClose: () => void;
 }
 
-const roles = [
-  {
-    name: "Foundational",
-    icon: Code,
-    skills: [
-      { subject: "Algorithms & Data Structures", A: 70, fullMark: 100 },
-      { subject: "Object-Oriented Programming", A: 80, fullMark: 100 },
-      { subject: "Databases (SQL/NoSQL)", A: 85, fullMark: 100 },
-      { subject: "Networking Basics", A: 65, fullMark: 100 },
-      { subject: "Code Quality & Best Practices", A: 80, fullMark: 100 },
-      { subject: "Design Patterns", A: 75, fullMark: 100 },
-    ],
-  },
+const CATEGORY_ICONS: Record<string, typeof Code> = {
+  code: Code,
+  server: Server,
+};
 
-  {
-    name: "Web Frontend",
-    icon: Code,
-    skills: [
-      { subject: "React", A: 65, fullMark: 100 },
-      { subject: "Angular", A: 60, fullMark: 100 },
-      { subject: "Next.js", A: 70, fullMark: 100 },
-      { subject: "Flutter", A: 85, fullMark: 100 },
-      { subject: "HTML&CSS", A: 75, fullMark: 100 },
-    ],
-  },
+interface Role {
+  name: string;
+  icon: typeof Code;
+  skills: { subject: string; A: number; fullMark: number }[];
+}
 
-  {
-    name: "Backend",
-    icon: Server,
-    skills: [
-      { subject: "NestJS", A: 85, fullMark: 100 },
-      { subject: "Node.js / Express", A: 80, fullMark: 100 },
-      { subject: "Spring Boot", A: 90, fullMark: 100 },
-      { subject: "Python (FastAPI/Flask)", A: 70, fullMark: 100 },
-      { subject: "Symfony", A: 90, fullMark: 100 },
-      { subject: "ASP .NET", A: 60, fullMark: 100 },
-    ],
-  },
-
-  {
-    name: "Mobile",
-    icon: Code,
-    skills: [
-      { subject: "Flutter", A: 90, fullMark: 100 },
-      { subject: "React Native", A: 60, fullMark: 100 },
-      { subject: "Kotlin (Android)", A: 80, fullMark: 100 },
-      { subject: "Swift & SwiftUI", A: 75, fullMark: 100 },
-      { subject: "Kotlin Multiplatform (KMP)", A: 60, fullMark: 100 },
-    ],
-  },
-
-  {
-    name: "DevOps",
-    icon: Server,
-    skills: [
-      { subject: "Docker / Compose", A: 85, fullMark: 100 },
-      { subject: "CI/CD (GitLab/Jenkins)", A: 80, fullMark: 100 },
-      { subject: "Linux & Shell", A: 70, fullMark: 100 },
-      { subject: "Monitoring (Grafana/Prometheus)", A: 75, fullMark: 100 },
-      { subject: "Version Control (Git)", A: 90, fullMark: 100 },
-      { subject: "Cloud Deployment", A: 65, fullMark: 100 },
-    ],
-  },
-
-  {
-    name: "AI & Automation",
-    icon: Code,
-    skills: [
-      { subject: "Claude Code (AI Dev)", A: 90, fullMark: 100 },
-      { subject: "Prompt Engineering", A: 88, fullMark: 100 },
-      { subject: "AI-Assisted Architecture", A: 85, fullMark: 100 },
-      { subject: "CrewAI / Agent Orchestration", A: 80, fullMark: 100 },
-      { subject: "Chatbot Design", A: 82, fullMark: 100 },
-      { subject: "Python Automation", A: 75, fullMark: 100 },
-    ],
-  },
-];
-
+function groupByCategory(skills: SkillContent[]): Role[] {
+  const order: string[] = [];
+  const byCategory = new Map<string, SkillContent[]>();
+  for (const skill of skills) {
+    if (!byCategory.has(skill.category)) {
+      order.push(skill.category);
+      byCategory.set(skill.category, []);
+    }
+    byCategory.get(skill.category)!.push(skill);
+  }
+  return order.map((category) => {
+    const categorySkills = byCategory.get(category)!;
+    return {
+      name: category,
+      icon: CATEGORY_ICONS[categorySkills[0]?.icon_key ?? ""] ?? Code,
+      skills: categorySkills
+        .sort((a, b) => a.sort_order - b.sort_order)
+        .map((s) => ({ subject: s.subject, A: s.level, fullMark: 100 })),
+    };
+  });
+}
 
 const SkillsMatrixModal: React.FC<SkillsMatrixModalProps> = ({ onClose }) => {
-  const [selectedRole, setSelectedRole] = useState(roles[2]); // Default to Penetration Tester
+  const [roles, setRoles] = useState<Role[]>([]);
+  const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+
+  useEffect(() => {
+    getSkills()
+      .then((skills) => {
+        const grouped = groupByCategory(skills);
+        setRoles(grouped);
+        setSelectedRole(grouped[0] ?? null);
+      })
+      .catch((error) => console.error("Failed to load skills", error));
+  }, []);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
@@ -109,7 +75,7 @@ const SkillsMatrixModal: React.FC<SkillsMatrixModalProps> = ({ onClose }) => {
             {roles.map((role) => (
               <Button
                 key={role.name}
-                variant={selectedRole.name === role.name ? "default" : "outline"}
+                variant={selectedRole?.name === role.name ? "default" : "outline"}
                 className="w-full justify-start gap-2"
                 onClick={() => setSelectedRole(role)}
               >
@@ -121,14 +87,16 @@ const SkillsMatrixModal: React.FC<SkillsMatrixModalProps> = ({ onClose }) => {
 
           {/* Right Panel: Radar Chart */}
           <div className="w-full md:w-3/4 h-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={selectedRole.skills}>
-                <PolarGrid stroke="hsl(var(--muted-foreground) / 0.2)" />
-                <PolarAngleAxis dataKey="subject" tick={{ fill: 'hsl(var(--foreground))', fontSize: 14 }} />
-                <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
-                <Radar name={selectedRole.name} dataKey="A" stroke="hsl(var(--primary))" fill="hsl(var(--primary) / 0.4)" fillOpacity={0.6} />
-              </RadarChart>
-            </ResponsiveContainer>
+            {selectedRole && (
+              <ResponsiveContainer width="100%" height="100%">
+                <RadarChart cx="50%" cy="50%" outerRadius="80%" data={selectedRole.skills}>
+                  <PolarGrid stroke="hsl(var(--muted-foreground) / 0.2)" />
+                  <PolarAngleAxis dataKey="subject" tick={{ fill: 'hsl(var(--foreground))', fontSize: 14 }} />
+                  <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
+                  <Radar name={selectedRole.name} dataKey="A" stroke="hsl(var(--primary))" fill="hsl(var(--primary) / 0.4)" fillOpacity={0.6} />
+                </RadarChart>
+              </ResponsiveContainer>
+            )}
           </div>
         </CardContent>
       </Card>

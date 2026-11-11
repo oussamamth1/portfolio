@@ -1,33 +1,7 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { GraduationCap, MapPin, Award, Star } from "lucide-react";
-
-const education = [
-  {
-    degree: "Master's Degree in Software Engineering",
-    institution: "Université ISET",
-    location: "Tunisia",
-    period: "2017 – 2022",
-    status: "Graduated",
-    description: "Specialized in software engineering principles and rapid application development.",
-    coursework: ["Software Engineering", "Mobile Development", "Web Development", "Databases", "Software Architecture"],
-    achievements: [
-      "Built multiple cross-platform applications with Flutter",
-      "Strong foundation in software architecture and delivery",
-    ],
-  },
-  {
-    degree: "Bachelor's Degree in Technology",
-    institution: "Université Salem Ben Hmida",
-    location: "Tunisia",
-    period: "2012 – 2016",
-    status: "Graduated",
-    description: "Foundation in technology and computer science.",
-    coursework: ["Computer Science Fundamentals", "Mathematics", "Problem Solving", "Algorithms", "Networks"],
-    achievements: [
-      "Solid base in computing and engineering fundamentals",
-    ],
-  },
-];
+import { getEducation, type EducationContent } from "@/lib/api";
 
 const cardVariants = {
   hidden: (i: number) => ({
@@ -41,7 +15,16 @@ const cardVariants = {
   },
 };
 
-const EducationSection = () => (
+const EducationSection = () => {
+  const [education, setEducation] = useState<EducationContent[]>([]);
+
+  useEffect(() => {
+    getEducation()
+      .then(setEducation)
+      .catch((error) => console.error("Failed to load education", error));
+  }, []);
+
+  return (
   <section id="education" className="relative py-24 overflow-hidden">
     {/* Background effects */}
     <div
@@ -88,7 +71,7 @@ const EducationSection = () => (
       <div className="grid md:grid-cols-2 gap-6">
         {education.map((edu, index) => (
           <motion.div
-            key={index}
+            key={edu.id}
             custom={index}
             variants={cardVariants}
             initial="hidden"
@@ -189,6 +172,7 @@ const EducationSection = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default EducationSection;

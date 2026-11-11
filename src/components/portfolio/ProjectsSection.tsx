@@ -12,6 +12,14 @@ import {
   Smartphone,
   Dumbbell,
 } from "lucide-react";
+import { getProjects, type ProjectContent } from "@/lib/api";
+
+const PROJECT_ICONS: Record<string, typeof Briefcase> = {
+  briefcase: Briefcase,
+  shield: Shield,
+  smartphone: Smartphone,
+  dumbbell: Dumbbell,
+};
 
 // Apple logo SVG
 const AppleIcon = () => (
@@ -29,6 +37,13 @@ const PlayStoreIcon = () => (
 
 const ProjectsSection = () => {
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
+  const [projects, setProjects] = useState<ProjectContent[]>([]);
+
+  useEffect(() => {
+    getProjects()
+      .then(setProjects)
+      .catch((error) => console.error("Failed to load projects", error));
+  }, []);
 
   // Lock body scroll and enable Escape-to-close while the demo modal is open
   useEffect(() => {
@@ -42,149 +57,6 @@ const ProjectsSection = () => {
       document.body.style.overflow = prevOverflow;
     };
   }, [activeVideoId]);
-
-  const projects = [
-    {
-      title: "AI Fitness Coach",
-      company: "Personal Project",
-      period: "2025",
-      location: "Tunisia",
-      description:
-        "A full AI-powered fitness app that puts a personal trainer, nutritionist and planner in your pocket. Snap a photo of your meal for instant calories & macros (vision AI), get AI-generated meal and workout plans with exercise demo clips, a smart daily planner that builds your routine and sets the alarms, and progress tracking with an AI projection of when you'll hit your goal.",
-      icon: Dumbbell,
-      category: "Mobile (Flutter + AI)",
-      technologies: ["Flutter", "Riverpod", "Firebase", "Firestore", "OpenRouter AI", "Vision AI", "fl_chart", "Local Notifications"],
-      highlights: [
-        "Meal photo → instant calories & macros via vision AI",
-        "AI meal & workout plans with real exercise photos and demo clips",
-        "Smart daily planner that schedules your routine and alarms automatically",
-        "Progress charts + AI projection of when you'll reach your goal",
-        "Conversational AI coach aware of your full profile",
-        "Multi-model fallback on free OpenRouter models — runs at zero inference cost",
-      ],
-      status: "In Progress",
-      github: "",
-      appStore: "",
-      playStore: "",
-      videoId: "H0Bsd7WaoW4",
-      imageUrl: "",
-      portrait: false,
-    },
-    {
-      title: "Sunshine Vacances",
-      company: "Zenify",
-      period: "2024–2025",
-      location: "Tunisia",
-      description:
-        "Full travel app for booking holidays, excursions, transfers and hotel packages. Cross-platform Flutter app with Firebase backend, real-time features and CI/CD delivery.",
-      icon: Briefcase,
-      category: "Mobile (Flutter)",
-      technologies: ["Flutter", "Dart", "Firebase", "Socket.IO", "REST API", "FCM", "CI/CD"],
-      highlights: [
-        "Published on both App Store (iOS) and Google Play (Android)",
-        "Real-time communication and booking confirmation flows",
-        "Cross-platform: Android, iOS, Web",
-        "Push notifications with Firebase Cloud Messaging",
-      ],
-      status: "Published",
-      github: "",
-      appStore: "https://apps.apple.com/il/app/sunshine-vacances/id6761716491",
-      playStore: "https://play.google.com/store/apps/details?id=com.zenifytrip.sunshinevacances.app",
-      imageUrl: "/sunshine_with_qr_code.png",
-      portrait: true,
-    },
-    {
-      title: "Tunisie Promo: Deals & Voyage",
-      company: "Zenify",
-      period: "2025–2026",
-      location: "Tunisia",
-      description:
-        "All-in-one travel deals app to book hotels, trips, excursions, transfers and car rentals at the best prices. Built with Flutter and integrated with Firebase services and REST APIs.",
-      icon: Briefcase,
-      category: "Mobile (Flutter)",
-      technologies: ["Flutter", "Dart", "Firebase", "REST API", "FCM", "Bloc", "Riverpod"],
-      highlights: [
-        "Published on both App Store (iOS) and Google Play (Android)",
-        "Push notifications with Firebase Cloud Messaging",
-        "Booking flows with discounts, passengers counts, and statuses",
-        "State management with Bloc/Riverpod",
-      ],
-      status: "Published",
-      github: "",
-      appStore: "https://apps.apple.com/us/app/tunisie-promo-deals-voyage/id6758765132",
-      playStore: "https://play.google.com/store/apps/details?id=com.zenifytrip.tunisiepromo.app",
-      imageUrl: "/tunisiepromo_with_qr_code.png",
-      portrait: true,
-    },
-    {
-      title: "Zenify Client App",
-      company: "Zenify",
-      period: "2024–2025",
-      location: "Tunisia",
-      description:
-        "Customer-facing booking app for promotions and travel packages. Focused on smooth UX, scalable state management and reliable NestJS backend integration.",
-      icon: Shield,
-      category: "Mobile (Flutter)",
-      technologies: ["Flutter", "Bloc", "Riverpod", "Provider", "NestJS", "Firebase"],
-      highlights: [
-        "Published on Google Play Store",
-        "State management with Bloc/Riverpod/Provider",
-        "NestJS backend API integration",
-        "Real-time booking status updates",
-      ],
-      status: "Published",
-      github: "",
-      appStore: "",
-      playStore: "https://play.google.com/store/apps/details?id=com.zenifytrip.client",
-      imageUrl: "/tunisiepromo.jpg",
-      portrait: false,
-    },
-    {
-      title: "Zenify Guide",
-      company: "Zenify",
-      period: "2024–2025",
-      location: "Tunisia",
-      description:
-        "Travel guide companion app for Zenify trips. Provides itinerary details, destination info, and real-time updates for travellers on tour.",
-      icon: Smartphone,
-      category: "Mobile (Flutter)",
-      technologies: ["Flutter", "Dart", "Firebase", "REST API", "FCM"],
-      highlights: [
-        "Published on Google Play Store",
-        "Real-time itinerary and trip updates",
-        "Push notifications for trip alerts",
-      ],
-      status: "Published",
-      github: "",
-      appStore: "",
-      playStore: "https://play.google.com/store/apps/details?id=com.zenifytrip.guide.android",
-      imageUrl: "",
-      portrait: false,
-    },
-    {
-      title: "Facturation — Invoicing App",
-      company: "Personal / Freelance",
-      period: "2025",
-      location: "Tunisia",
-      description:
-        "Full-stack invoicing and job-tracking mobile app for small service businesses (HVAC, etc.), built entirely with Flutter and Firebase. Developed end-to-end using Claude Code (AI-assisted workflow) — from architecture to release APK.",
-      icon: Briefcase,
-      category: "Mobile (Flutter)",
-      technologies: ["Flutter", "Dart", "Firebase", "Riverpod", "Claude Code (AI)", "PDF Generation"],
-      highlights: [
-        "Built end-to-end with AI-assisted development (Claude Code)",
-        "PDF invoice generation with company logo embedding",
-        "Firestore real-time sync, auth, and multi-user data isolation",
-        "Signed release APK with Gradle & dependency management",
-      ],
-      status: "In Progress",
-      github: "",
-      appStore: "",
-      playStore: "",
-      imageUrl: "",
-      portrait: false,
-    },
-  ];
 
   const statusVariant = (status: string) => {
     if (status === "Completed") return "default" as const;
@@ -210,23 +82,25 @@ const ProjectsSection = () => {
 
         {/* Grid – one project per row */}
         <div className="grid grid-cols-1 gap-8">
-          {projects.map((project, index) => (
+          {projects.map((project) => {
+            const ProjectIcon = PROJECT_ICONS[project.icon_key ?? ""] ?? Briefcase;
+            return (
             <Card
-              key={index}
+              key={project.id}
               className="group bg-card border-border/70 hover:border-primary/60 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 relative overflow-hidden"
             >
               {/* subtle top gradient */}
               <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-primary/60 via-primary/0 to-primary/60 opacity-0 group-hover:opacity-100 transition-opacity" />
 
               {/* Card body — side-by-side for portrait images, stacked otherwise */}
-              <div className={`flex ${project.imageUrl && project.portrait ? "flex-col md:flex-row" : "flex-col"}`}>
+              <div className={`flex ${project.image_url && project.portrait ? "flex-col md:flex-row" : "flex-col"}`}>
 
                 {/* ── Content column ── */}
                 <div className="flex-1 min-w-0">
                   <CardHeader className="pb-4">
                     <div className="flex items-start gap-4">
                       <div className="p-3 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
-                        <project.icon className="h-6 w-6 text-primary" />
+                        <ProjectIcon className="h-6 w-6 text-primary" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-wrap items-start justify-between gap-2">
@@ -249,10 +123,10 @@ const ProjectsSection = () => {
 
                   <CardContent className="space-y-5 pt-0">
                     {/* Landscape image — full width above description */}
-                    {project.imageUrl && !project.portrait && (
+                    {project.image_url && !project.portrait && (
                       <div className="relative rounded-xl overflow-hidden border border-border/60 bg-muted/40">
                         <img
-                          src={project.imageUrl}
+                          src={project.image_url}
                           alt={`${project.title} preview`}
                           loading="lazy"
                           decoding="async"
@@ -295,51 +169,51 @@ const ProjectsSection = () => {
                     )}
 
                     {/* Actions */}
-                    {(project.github || project.appStore || project.playStore || project.videoId) && (
+                    {(project.github_url || project.app_store_url || project.play_store_url || project.video_id) && (
                       <div className="flex flex-wrap gap-2 pt-3 border-t border-border/60 mt-1">
-                    {project.appStore && project.appStore.trim() !== "" && (
+                    {project.app_store_url && project.app_store_url.trim() !== "" && (
                       <Button
                         variant="outline"
                         size="sm"
                         asChild
                         className="gap-2 border-border/70 hover:border-violet/40 hover:text-violet hover:bg-violet/5"
                       >
-                        <a href={project.appStore} target="_blank" rel="noreferrer">
+                        <a href={project.app_store_url} target="_blank" rel="noreferrer">
                           <AppleIcon />
                           <span>App Store</span>
                         </a>
                       </Button>
                     )}
 
-                    {project.playStore && project.playStore.trim() !== "" && (
+                    {project.play_store_url && project.play_store_url.trim() !== "" && (
                       <Button
                         variant="outline"
                         size="sm"
                         asChild
                         className="gap-2 border-border/70 hover:border-violet/40 hover:text-violet hover:bg-violet/5"
                       >
-                        <a href={project.playStore} target="_blank" rel="noreferrer">
+                        <a href={project.play_store_url} target="_blank" rel="noreferrer">
                           <PlayStoreIcon />
                           <span>Play Store</span>
                         </a>
                       </Button>
                     )}
 
-                    {project.github && project.github.trim() !== "" && (
+                    {project.github_url && project.github_url.trim() !== "" && (
                       <Button variant="outline" size="sm" asChild className="gap-2">
-                        <a href={project.github} target="_blank" rel="noreferrer">
+                        <a href={project.github_url} target="_blank" rel="noreferrer">
                           <Github className="h-4 w-4" />
                           <span>Source Code</span>
                         </a>
                       </Button>
                     )}
 
-                    {project.videoId && (
+                    {project.video_id && (
                       <Button
                         size="sm"
                         variant="ghost"
                         className="gap-2"
-                        onClick={() => setActiveVideoId(project.videoId as string)}
+                        onClick={() => setActiveVideoId(project.video_id as string)}
                       >
                         <PlayCircle className="h-4 w-4" />
                         <span>Watch Demo</span>
@@ -351,14 +225,14 @@ const ProjectsSection = () => {
                 </div>
 
                 {/* ── Portrait image side panel ── */}
-                {project.imageUrl && project.portrait && (
+                {project.image_url && project.portrait && (
                   <div className="md:w-56 shrink-0 flex items-center justify-center p-4 border-t md:border-t-0 md:border-l border-border/40 bg-surface-elevated/20 relative">
                     <div className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-[10px] text-white backdrop-blur-sm z-10">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                       <span>Preview</span>
                     </div>
                     <img
-                      src={project.imageUrl}
+                      src={project.image_url}
                       alt={`${project.title} preview`}
                       loading="lazy"
                       decoding="async"
@@ -368,7 +242,8 @@ const ProjectsSection = () => {
                 )}
               </div>
             </Card>
-          ))}
+            );
+          })}
         </div>
       </div>
 

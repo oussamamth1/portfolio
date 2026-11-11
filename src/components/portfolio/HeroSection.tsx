@@ -7,9 +7,20 @@ import CvDownloadModal from "./CvDownloadModal";
 import SkillsMatrixModal from "./SkillsMatrixModal";
 import ParticleBackground from "./ParticleBackground";
 import AnimatedCounter from "./AnimatedCounter";
+import { getProfile, type ProfileContent } from "@/lib/api";
 
 const TYPING_WORDS = ["Mobile Developer", "Flutter Expert", "NestJS Engineer", "CI/CD Architect", "AI-Powered Developer"];
 const TECH_STACK = ["Flutter", "NestJS"];
+
+const FALLBACK_PROFILE: ProfileContent = {
+  name: "Oussama Methnani",
+  title: "Flutter & NestJS Developer",
+  tagline: null,
+  bio: "4+ years shipping production Flutter apps to Google Play & App Store. Expert in Firebase, NestJS, CI/CD pipelines, and state management. Proficient in AI-assisted development — leveraging AI to architect, build, and ship full products faster.",
+  phone: "+21620640783",
+  avatar_url: "/oussama-hero.png",
+  resume_url: null,
+};
 
 const HeroSection = () => {
   const [isContactFormOpen, setContactFormOpen] = useState(false);
@@ -18,7 +29,17 @@ const HeroSection = () => {
   const [typingIndex, setTypingIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [profile, setProfile] = useState<ProfileContent>(FALLBACK_PROFILE);
   const prefersReduced = useReducedMotion();
+
+  useEffect(() => {
+    getProfile()
+      .then(setProfile)
+      .catch((error) => console.error("Failed to load profile", error));
+  }, []);
+
+  const [firstName, ...restName] = profile.name.split(" ");
+  const lastName = restName.join(" ");
 
   useEffect(() => {
     if (prefersReduced) { setDisplayed(TYPING_WORDS[0]); return; }
@@ -112,9 +133,13 @@ const HeroSection = () => {
               {/* Name + typing */}
               <motion.div variants={fadeUp} className="space-y-3">
                 <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold leading-[1.05] tracking-tight">
-                  <span className="text-foreground">Oussama</span>
-                  <br />
-                  <span className="text-gradient">Methnani</span>
+                  <span className="text-foreground">{firstName}</span>
+                  {lastName && (
+                    <>
+                      <br />
+                      <span className="text-gradient">{lastName}</span>
+                    </>
+                  )}
                 </h1>
                 <div className="flex items-center gap-2 h-10">
                   <span className="font-display text-base sm:text-xl lg:text-2xl text-muted-foreground font-medium">
@@ -126,9 +151,7 @@ const HeroSection = () => {
 
               {/* Bio */}
               <motion.p variants={fadeUp} className="text-base text-muted-foreground max-w-md leading-relaxed">
-                4+ years shipping production Flutter apps to Google Play & App Store.
-                Expert in Firebase, NestJS, CI/CD pipelines, and state management.
-                Proficient in AI-assisted development — leveraging AI to architect, build, and ship full products faster.
+                {profile.bio}
               </motion.p>
 
               {/* Current position */}
@@ -140,7 +163,7 @@ const HeroSection = () => {
                 <span className="text-xs text-muted-foreground/50 font-mono tracking-wide">Currently at</span>
                 <span className="text-sm font-semibold text-foreground/90">Continuous Net</span>
                 <span className="text-muted-foreground/25 select-none text-sm leading-none">—</span>
-                <span className="text-sm text-muted-foreground/65 font-medium">Flutter & NestJS Developer</span>
+                <span className="text-sm text-muted-foreground/65 font-medium">{profile.title}</span>
                 <span className="flex items-center gap-1.5">
                   {TECH_STACK.map((tech) => (
                     <span key={tech} className="badge-tech">{tech}</span>
@@ -216,11 +239,13 @@ const HeroSection = () => {
                     <Linkedin className="h-5 w-5" />
                   </a>
                 </Button>
-                <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-violet hover:bg-violet/10 rounded-xl" asChild>
-                  <a href="tel:+21620640783" aria-label="Call Oussama">
-                    <Phone className="h-5 w-5" />
-                  </a>
-                </Button>
+                {profile.phone && (
+                  <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-violet hover:bg-violet/10 rounded-xl" asChild>
+                    <a href={`tel:${profile.phone}`} aria-label={`Call ${firstName}`}>
+                      <Phone className="h-5 w-5" />
+                    </a>
+                  </Button>
+                )}
                 <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-violet hover:bg-violet/10 rounded-xl" onClick={() => setContactFormOpen(true)} aria-label="Send email">
                   <Mail className="h-5 w-5" />
                 </Button>
@@ -267,8 +292,8 @@ const HeroSection = () => {
               />
 
               <motion.img
-                src="/oussama-hero.png"
-                alt="Oussama Methnani — Mobile Developer"
+                src={profile.avatar_url ?? "/oussama-hero.png"}
+                alt={`${profile.name} — ${profile.title}`}
                 className="relative w-44 h-44 sm:w-60 sm:h-60 lg:w-[22rem] lg:h-[22rem] rounded-full object-cover shadow-glow-lg"
                 style={{ border: "2.5px solid hsl(38 92% 50% / 0.4)" }}
                 animate={prefersReduced ? {} : { y: [0, -10, 0] }}
@@ -392,7 +417,9 @@ const HeroSection = () => {
       </section>
 
       {isContactFormOpen && <ContactForm onClose={() => setContactFormOpen(false)} />}
-      {isCvModalOpen && <CvDownloadModal onClose={() => setCvModalOpen(false)} />}
+      {isCvModalOpen && (
+        <CvDownloadModal onClose={() => setCvModalOpen(false)} resumeUrl={profile.resume_url} />
+      )}
       {isSkillsMatrixOpen && <SkillsMatrixModal onClose={() => setSkillsMatrixOpen(false)} />}
     </>
   );

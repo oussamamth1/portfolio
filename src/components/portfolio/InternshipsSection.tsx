@@ -1,39 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Briefcase, MapPin, ExternalLink, PlayCircle, X, Rocket, Users, Server } from "lucide-react";
-
-const experiences = [
-  {
-    company: "Continuous Net",
-    role: "Flutter & NestJS Developer",
-    period: "2022 – Present",
-    location: "Sousse, Tunisia",
-    type: "Full-time",
-    isCurrent: true,
-    logoUrl: "/continuousnet.png",
-    description:
-      "Developed and maintained production Flutter apps (Android, iOS, Web) with scalable architecture and advanced state management (Bloc, Riverpod, Provider). Built and integrated REST APIs with NestJS, implemented CI/CD pipelines with Firebase App Distribution, and delivered features using Firebase services (FCM, Realtime Database, Firestore, Crashlytics, Analytics). Shipped multiple apps to Google Play Store and App Store.",
-    highlights: [
-      "Shipped 10+ production apps to Google Play & App Store",
-      "Designed CI/CD pipelines reducing release time by 60%",
-      "Integrated Firebase suite: FCM, Crashlytics, Analytics, App Distribution",
-      "Built scalable NestJS REST APIs consumed by mobile clients",
-    ],
-    metrics: [
-      { icon: Rocket,  label: "Apps shipped", value: "10+" },
-      { icon: Users,   label: "Active users",  value: "500+" },
-      { icon: Server,  label: "APIs built",    value: "15+" },
-    ],
-    techs: ["Flutter", "Dart", "NestJS", "TypeScript", "Firebase", "Bloc", "Riverpod", "CI/CD", "Docker", "Git"],
-    demo: "https://play.google.com/store/apps/details?id=com.zenifytrip.tunisiepromo.app",
-    videoId: null as string | null,
-  },
-];
+import { Briefcase, MapPin, ExternalLink, PlayCircle, X } from "lucide-react";
+import { getInternships, type InternshipContent } from "@/lib/api";
 
 const MotionCard = motion.div;
 
 const InternshipsSection = () => {
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
+  const [experiences, setExperiences] = useState<InternshipContent[]>([]);
+
+  useEffect(() => {
+    getInternships()
+      .then(setExperiences)
+      .catch((error) => console.error("Failed to load internships", error));
+  }, []);
 
   return (
     <section id="internships" className="relative py-24 overflow-hidden">
@@ -71,9 +51,9 @@ const InternshipsSection = () => {
           <div className="absolute left-6 top-0 bottom-0 w-px hidden md:block" style={{ background: "linear-gradient(to bottom, hsl(38 92% 50% / 0.6), hsl(38 92% 50% / 0.05))" }} />
 
           <div className="space-y-8">
-            {experiences.map((exp, index) => (
+            {experiences.map((exp) => (
               <motion.div
-                key={index}
+                key={exp.id}
                 initial={{ opacity: 0, x: -32 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
@@ -83,7 +63,7 @@ const InternshipsSection = () => {
                 {/* Timeline node */}
                 <div className="absolute left-4 top-6 hidden md:flex items-center justify-center w-4 h-4 rounded-full border-2 border-violet bg-background -translate-x-1/2 z-10">
                   <div className="w-1.5 h-1.5 rounded-full bg-violet" />
-                  {exp.isCurrent && (
+                  {exp.is_current && (
                     <span className="absolute -inset-1 rounded-full bg-violet/20 animate-ping" />
                   )}
                 </div>
@@ -110,7 +90,7 @@ const InternshipsSection = () => {
                         style={{ background: "hsl(245 20% 12%)" }}
                       >
                         <img
-                          src={exp.logoUrl}
+                          src={exp.logo_url ?? undefined}
                           alt={`${exp.company} logo`}
                           className="w-10 h-10 object-contain"
                           onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
@@ -121,7 +101,7 @@ const InternshipsSection = () => {
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-wrap items-center gap-2 mb-0.5">
                           <h3 className="font-display font-semibold text-lg text-foreground">{exp.company}</h3>
-                          {exp.isCurrent && (
+                          {exp.is_current && (
                             <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold text-emerald-400 border border-emerald-400/30 bg-emerald-400/8">
                               <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse" />
                               Current
@@ -143,18 +123,18 @@ const InternshipsSection = () => {
 
                       {/* Action buttons */}
                       <div className="flex items-center gap-2 shrink-0">
-                        {exp.videoId && (
+                        {exp.video_id && (
                           <button
-                            onClick={() => setActiveVideoId(exp.videoId)}
+                            onClick={() => setActiveVideoId(exp.video_id)}
                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-muted-foreground border border-border/50 hover:text-violet hover:border-violet/40 hover:bg-violet/5 transition-all duration-200"
                           >
                             <PlayCircle className="h-3.5 w-3.5" />
                             Demo
                           </button>
                         )}
-                        {exp.demo && (
+                        {exp.demo_url && (
                           <a
-                            href={exp.demo}
+                            href={exp.demo_url}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-violet border border-violet/30 hover:bg-violet/10 hover:border-violet/50 transition-all duration-200"
@@ -182,24 +162,6 @@ const InternshipsSection = () => {
                           </li>
                         ))}
                       </ul>
-                    </div>
-
-                    {/* Metrics */}
-                    <div className="grid grid-cols-3 gap-3">
-                      {exp.metrics.map((m) => {
-                        const MetricIcon = m.icon;
-                        return (
-                          <div
-                            key={m.label}
-                            className="rounded-xl border border-border/50 p-3 text-center"
-                            style={{ background: "hsl(245 20% 12%)" }}
-                          >
-                            <MetricIcon className="h-4 w-4 text-violet/70 mx-auto mb-1" />
-                            <p className="font-display font-bold text-lg text-gradient leading-none">{m.value}</p>
-                            <p className="text-[10px] text-muted-foreground/70 mt-0.5 font-mono tracking-wide">{m.label}</p>
-                          </div>
-                        );
-                      })}
                     </div>
 
                     {/* Tech chips */}

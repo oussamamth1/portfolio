@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 interface CvDownloadModalProps {
   onClose: () => void;
+  resumeUrl?: string | null;
 }
 
 const highlights = [
@@ -14,7 +15,7 @@ const highlights = [
   { icon: GraduationCap, label: "Education", value: "Master's Degree" },
 ];
 
-const CvDownloadModal = ({ onClose }: CvDownloadModalProps) => {
+const CvDownloadModal = ({ onClose, resumeUrl }: CvDownloadModalProps) => {
   return (
     <AnimatePresence>
       <motion.div
@@ -118,8 +119,10 @@ const CvDownloadModal = ({ onClose }: CvDownloadModalProps) => {
                 </Button>
               </Link>
               <a
-                href="/Oussama_Methnani.pdf"
-                download="Oussama_Methnani.pdf"
+                href={resumeUrl ?? "/Oussama_Methnani.pdf"}
+                download={resumeUrl ? undefined : "Oussama_Methnani.pdf"}
+                target={resumeUrl ? "_blank" : undefined}
+                rel={resumeUrl ? "noopener noreferrer" : undefined}
                 className="flex-1"
               >
                 <Button
