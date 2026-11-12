@@ -3,6 +3,10 @@ import type { Config } from "tailwindcss";
 export default {
   darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  // UserPortfolioPage.tsx builds the theme class dynamically
+  // (`theme-${resolveTheme(profile)}`), so Tailwind's static content scanner
+  // never sees these literal class names and would otherwise purge them.
+  safelist: ["theme-amber", "theme-violet", "theme-emerald", "theme-crimson", "theme-azure"],
   prefix: "",
   theme: {
     container: {
