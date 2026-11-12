@@ -6,7 +6,16 @@ export default {
   // UserPortfolioPage.tsx builds the theme class dynamically
   // (`theme-${resolveTheme(profile)}`), so Tailwind's static content scanner
   // never sees these literal class names and would otherwise purge them.
-  safelist: ["theme-amber", "theme-violet", "theme-emerald", "theme-crimson", "theme-azure"],
+  safelist: [
+    "theme-amber",
+    "theme-violet",
+    "theme-emerald",
+    "theme-crimson",
+    "theme-azure",
+    "theme-rose",
+    "theme-slate",
+    "theme-ocean",
+  ],
   prefix: "",
   theme: {
     container: {

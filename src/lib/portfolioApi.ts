@@ -1,6 +1,16 @@
-export type ProfileTheme = "amber" | "violet" | "emerald" | "crimson" | "azure";
+export type ProfileTheme =
+  | "amber"
+  | "violet"
+  | "emerald"
+  | "crimson"
+  | "azure"
+  | "rose"
+  | "slate"
+  | "ocean";
 
-export type ProfileAnimation = "none" | "fade" | "particles" | "matrix";
+export type ProfileAnimation = "none" | "fade" | "particles" | "matrix" | "tilt";
+
+export type Size = "small" | "medium" | "large";
 
 export type SectionKey =
   | "skills"
@@ -33,6 +43,8 @@ export interface RemoteProfile {
   theme?: ProfileTheme;
   section_config?: SectionConfigItem[];
   animation?: ProfileAnimation;
+  avatar_size?: Size;
+  text_size?: Size;
 }
 
 export interface RemoteSkill {
@@ -103,6 +115,14 @@ export function resolveSectionConfig(profile: RemoteProfile): SectionConfigItem[
 
 export function resolveAnimation(profile: RemoteProfile): ProfileAnimation {
   return profile.animation ?? "none";
+}
+
+export function resolveAvatarSize(profile: RemoteProfile): Size {
+  return profile.avatar_size ?? "medium";
+}
+
+export function resolveTextSize(profile: RemoteProfile): Size {
+  return profile.text_size ?? "medium";
 }
 
 export class RemoteProfileNotFoundError extends Error {

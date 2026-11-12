@@ -9,15 +9,30 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import ParticleBackground from "@/components/portfolio/ParticleBackground";
 import MatrixBackground from "@/components/portfolio/MatrixBackground";
+import useMouseTilt from "@/hooks/useMouseTilt";
 import {
   fetchRemotePortfolio,
   resolveAnimation,
+  resolveAvatarSize,
   resolveSectionConfig,
+  resolveTextSize,
   resolveTheme,
   RemoteProfileNotFoundError,
   type RemotePortfolio,
   type SectionKey,
 } from "@/lib/portfolioApi";
+
+const AVATAR_SIZE_CLASSES: Record<string, string> = {
+  small: "h-16 w-16",
+  medium: "h-24 w-24",
+  large: "h-32 w-32",
+};
+
+const TEXT_ZOOM: Record<string, number> = {
+  small: 0.9,
+  medium: 1,
+  large: 1.15,
+};
 
 type LoadState =
   | { status: "loading" }
@@ -37,6 +52,11 @@ export default function UserPortfolioPage() {
   const prefersReduced = useReducedMotion();
   const animation = state.status === "ready" ? resolveAnimation(state.data.profile) : "none";
   const fadeEnabled = animation === "fade";
+  const tiltEnabled = animation === "tilt";
+  const avatarSize =
+    state.status === "ready" ? resolveAvatarSize(state.data.profile) : "medium";
+  const textZoom =
+    state.status === "ready" ? TEXT_ZOOM[resolveTextSize(state.data.profile)] : 1;
 
   useEffect(() => {
     if (!username) return;
@@ -252,6 +272,7 @@ export default function UserPortfolioPage() {
   return (
     <main
       className={`theme-${resolveTheme(profile)} relative min-h-screen overflow-hidden bg-background text-foreground px-4 py-16`}
+      style={{ zoom: textZoom }}
     >
       {animation === "particles" && <ParticleBackground />}
       {animation === "matrix" && <MatrixBackground />}
@@ -259,10 +280,12 @@ export default function UserPortfolioPage() {
       <div className="relative z-10 mx-auto max-w-3xl space-y-16">
         <FadeIn enabled={fadeEnabled} prefersReduced={prefersReduced}>
           <section className="text-center space-y-3">
-            <Avatar className="mx-auto h-24 w-24">
-              <AvatarImage src={profile.avatar_url ?? undefined} alt={profile.name} />
-              <AvatarFallback className="text-2xl">{profile.name.charAt(0)}</AvatarFallback>
-            </Avatar>
+            <TiltWrapper enabled={tiltEnabled}>
+              <Avatar className={`mx-auto ${AVATAR_SIZE_CLASSES[avatarSize]}`}>
+                <AvatarImage src={profile.avatar_url ?? undefined} alt={profile.name} />
+                <AvatarFallback className="text-2xl">{profile.name.charAt(0)}</AvatarFallback>
+              </Avatar>
+            </TiltWrapper>
             <h1 className="font-display text-4xl font-bold">{profile.name}</h1>
             <p className="text-lg text-primary font-medium">{profile.title}</p>
             {profile.tagline && <p className="text-muted-foreground">{profile.tagline}</p>}
@@ -325,6 +348,27 @@ function FadeIn({
     >
       {children}
     </motion.div>
+  );
+}
+
+function TiltWrapper({ enabled, children }: { enabled: boolean; children: ReactNode }) {
+  const { ref, tilt, onMouseMove, onMouseLeave } = useMouseTilt(12);
+
+  if (!enabled) return <>{children}</>;
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      className="inline-block [transform-style:preserve-3d]"
+      style={{
+        transform: `perspective(600px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
+        transition: "transform 0.15s ease-out",
+      }}
+    >
+      {children}
+    </div>
   );
 }
 
