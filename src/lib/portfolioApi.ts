@@ -17,7 +17,10 @@ export type SectionKey =
   | "internships"
   | "projects"
   | "education"
-  | "certifications";
+  | "certifications"
+  | "languages"
+  | "stats"
+  | "contact";
 
 export interface SectionConfigItem {
   key: SectionKey;
@@ -30,6 +33,9 @@ const DEFAULT_SECTION_CONFIG: SectionConfigItem[] = [
   { key: "projects", visible: true },
   { key: "education", visible: true },
   { key: "certifications", visible: true },
+  { key: "languages", visible: true },
+  { key: "stats", visible: true },
+  { key: "contact", visible: true },
 ];
 
 export interface RemoteProfile {
@@ -38,13 +44,22 @@ export interface RemoteProfile {
   tagline: string | null;
   bio: string | null;
   phone: string | null;
+  email: string | null;
   avatar_url: string | null;
   resume_url: string | null;
+  cover_url: string | null;
+  cover_enabled?: boolean;
   theme?: ProfileTheme;
   section_config?: SectionConfigItem[];
   animation?: ProfileAnimation;
   avatar_size?: Size;
   text_size?: Size;
+}
+
+export interface RemoteLanguage {
+  id: string;
+  language: string;
+  level: number;
 }
 
 export interface RemoteSkill {
@@ -99,6 +114,7 @@ export interface RemotePortfolio {
   certifications: RemoteCertification[];
   internships: RemoteInternship[];
   projects: RemoteProject[];
+  languages: RemoteLanguage[];
 }
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "https://portfolio-api-l4on.onrender.com";
@@ -108,9 +124,15 @@ export function resolveTheme(profile: RemoteProfile): ProfileTheme {
 }
 
 export function resolveSectionConfig(profile: RemoteProfile): SectionConfigItem[] {
-  return profile.section_config && profile.section_config.length > 0
-    ? profile.section_config
-    : DEFAULT_SECTION_CONFIG;
+  const stored = profile.section_config;
+  if (!stored || stored.length === 0) return DEFAULT_SECTION_CONFIG;
+
+  // Append any section key introduced after this profile's section_config
+  // was last saved (e.g. "languages"/"stats"/"contact" for older profiles),
+  // so new sections show up by default instead of silently never appearing.
+  const knownKeys = new Set(stored.map((entry) => entry.key));
+  const missing = DEFAULT_SECTION_CONFIG.filter((entry) => !knownKeys.has(entry.key));
+  return [...stored, ...missing];
 }
 
 export function resolveAnimation(profile: RemoteProfile): ProfileAnimation {
@@ -147,13 +169,15 @@ export async function fetchRemotePortfolio(username: string): Promise<RemotePort
     throw new RemoteProfileNotFoundError(username);
   }
 
-  const [skills, education, certifications, internships, projects] = await Promise.all([
-    getJson<RemoteSkill[]>(`/u/${username}/skills`),
-    getJson<RemoteEducation[]>(`/u/${username}/education`),
-    getJson<RemoteCertification[]>(`/u/${username}/certifications`),
-    getJson<RemoteInternship[]>(`/u/${username}/internships`),
-    getJson<RemoteProject[]>(`/u/${username}/projects`),
-  ]);
+  const [skills, education, certifications, internships, projects, languages] =
+    await Promise.all([
+      getJson<RemoteSkill[]>(`/u/${username}/skills`),
+      getJson<RemoteEducation[]>(`/u/${username}/education`),
+      getJson<RemoteCertification[]>(`/u/${username}/certifications`),
+      getJson<RemoteInternship[]>(`/u/${username}/internships`),
+      getJson<RemoteProject[]>(`/u/${username}/projects`),
+      getJson<RemoteLanguage[]>(`/u/${username}/languages`),
+    ]);
 
-  return { profile, skills, education, certifications, internships, projects };
+  return { profile, skills, education, certifications, internships, projects, languages };
 }

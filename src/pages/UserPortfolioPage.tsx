@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useParams } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { Github, Phone, FileText } from "lucide-react";
+import { Github, Phone, FileText, Mail, BarChart3 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -85,7 +85,8 @@ export default function UserPortfolioPage() {
     return <CenteredMessage>Something went wrong: {state.message}</CenteredMessage>;
   }
 
-  const { profile, skills, education, certifications, internships, projects } = state.data;
+  const { profile, skills, education, certifications, internships, projects, languages } =
+    state.data;
   const skillsByCategory = new Map<string, typeof skills>();
   for (const skill of skills) {
     const bucket = skillsByCategory.get(skill.category) ?? [];
@@ -262,6 +263,69 @@ export default function UserPortfolioPage() {
       </Section>
       </FadeIn>
     ),
+    languages: languages.length > 0 && (
+      <FadeIn key="languages" enabled={fadeEnabled} prefersReduced={prefersReduced}>
+      <Section title="Languages">
+        <div className="grid gap-4 sm:grid-cols-2">
+          {languages.map((lang) => (
+            <div key={lang.id} className="space-y-1">
+              <div className="flex justify-between text-sm">
+                <span>{lang.language}</span>
+                <span className="text-muted-foreground">{lang.level}%</span>
+              </div>
+              <Progress value={lang.level} className="h-2" />
+            </div>
+          ))}
+        </div>
+      </Section>
+      </FadeIn>
+    ),
+    stats: (
+      <FadeIn key="stats" enabled={fadeEnabled} prefersReduced={prefersReduced}>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {[
+            { label: "Projects", value: projects.length },
+            { label: "Skills", value: skills.length },
+            { label: "Certifications", value: certifications.length },
+            { label: "Experience", value: internships.length },
+          ]
+            .filter((stat) => stat.value > 0)
+            .map((stat) => (
+              <Card key={stat.label}>
+                <CardContent className="flex flex-col items-center justify-center gap-1 p-4 text-center">
+                  <BarChart3 className="h-4 w-4 text-primary" />
+                  <span className="font-display text-2xl font-bold">{stat.value}</span>
+                  <span className="text-xs text-muted-foreground">{stat.label}</span>
+                </CardContent>
+              </Card>
+            ))}
+        </div>
+      </FadeIn>
+    ),
+    contact: (profile.email || profile.phone) && (
+      <FadeIn key="contact" enabled={fadeEnabled} prefersReduced={prefersReduced}>
+      <Section title="Contact">
+        <div className="flex flex-wrap items-center gap-4">
+          {profile.email && (
+            <a
+              href={`mailto:${profile.email}`}
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <Mail className="h-4 w-4" /> {profile.email}
+            </a>
+          )}
+          {profile.phone && (
+            <a
+              href={`tel:${profile.phone}`}
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <Phone className="h-4 w-4" /> {profile.phone}
+            </a>
+          )}
+        </div>
+      </Section>
+      </FadeIn>
+    ),
   };
 
   const orderedSections = resolveSectionConfig(profile)
@@ -278,6 +342,15 @@ export default function UserPortfolioPage() {
       {animation === "matrix" && <MatrixBackground />}
 
       <div className="relative z-10 mx-auto max-w-3xl space-y-16">
+        {profile.cover_enabled && profile.cover_url && (
+          <img
+            src={profile.cover_url}
+            alt=""
+            aria-hidden="true"
+            className="h-40 w-full rounded-xl object-cover sm:h-56"
+          />
+        )}
+
         <FadeIn enabled={fadeEnabled} prefersReduced={prefersReduced}>
           <section className="text-center space-y-3">
             <TiltWrapper enabled={tiltEnabled}>
