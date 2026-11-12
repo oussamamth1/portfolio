@@ -1,7 +1,18 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useParams } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { Github, Phone, FileText, Mail, BarChart3 } from "lucide-react";
+import {
+  Github,
+  Phone,
+  FileText,
+  Mail,
+  BarChart3,
+  Linkedin,
+  Facebook,
+  Instagram,
+  Twitter,
+  MessageCircle,
+} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -302,7 +313,14 @@ export default function UserPortfolioPage() {
         </div>
       </FadeIn>
     ),
-    contact: (profile.email || profile.phone) && (
+    contact: (profile.email ||
+      profile.phone ||
+      profile.linkedin_url ||
+      profile.github_url ||
+      profile.whatsapp_url ||
+      profile.facebook_url ||
+      profile.instagram_url ||
+      profile.twitter_url) && (
       <FadeIn key="contact" enabled={fadeEnabled} prefersReduced={prefersReduced}>
       <Section title="Contact">
         <div className="flex flex-wrap items-center gap-4">
@@ -320,6 +338,66 @@ export default function UserPortfolioPage() {
               className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
             >
               <Phone className="h-4 w-4" /> {profile.phone}
+            </a>
+          )}
+          {profile.whatsapp_url && (
+            <a
+              href={profile.whatsapp_url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <MessageCircle className="h-4 w-4" /> WhatsApp
+            </a>
+          )}
+          {profile.linkedin_url && (
+            <a
+              href={profile.linkedin_url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <Linkedin className="h-4 w-4" /> LinkedIn
+            </a>
+          )}
+          {profile.github_url && (
+            <a
+              href={profile.github_url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <Github className="h-4 w-4" /> GitHub
+            </a>
+          )}
+          {profile.facebook_url && (
+            <a
+              href={profile.facebook_url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <Facebook className="h-4 w-4" /> Facebook
+            </a>
+          )}
+          {profile.instagram_url && (
+            <a
+              href={profile.instagram_url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <Instagram className="h-4 w-4" /> Instagram
+            </a>
+          )}
+          {profile.twitter_url && (
+            <a
+              href={profile.twitter_url}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+            >
+              <Twitter className="h-4 w-4" /> X / Twitter
             </a>
           )}
         </div>
@@ -343,22 +421,38 @@ export default function UserPortfolioPage() {
 
       <div className="relative z-10 mx-auto max-w-3xl space-y-16">
         {profile.cover_enabled && profile.cover_url && (
-          <img
-            src={profile.cover_url}
-            alt=""
-            aria-hidden="true"
-            className="h-40 w-full rounded-xl object-cover sm:h-56"
-          />
+          <div className="relative mb-16">
+            <img
+              src={profile.cover_url}
+              alt=""
+              aria-hidden="true"
+              className="h-40 w-full rounded-xl object-cover sm:h-56"
+            />
+            <div className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-1/2">
+              <TiltWrapper enabled={tiltEnabled}>
+                <Avatar
+                  className={`${AVATAR_SIZE_CLASSES[avatarSize]} ring-4 ring-background`}
+                >
+                  <AvatarImage src={profile.avatar_url ?? undefined} alt={profile.name} />
+                  <AvatarFallback className="text-2xl">
+                    {profile.name.charAt(0)}
+                  </AvatarFallback>
+                </Avatar>
+              </TiltWrapper>
+            </div>
+          </div>
         )}
 
         <FadeIn enabled={fadeEnabled} prefersReduced={prefersReduced}>
           <section className="text-center space-y-3">
-            <TiltWrapper enabled={tiltEnabled}>
-              <Avatar className={`mx-auto ${AVATAR_SIZE_CLASSES[avatarSize]}`}>
-                <AvatarImage src={profile.avatar_url ?? undefined} alt={profile.name} />
-                <AvatarFallback className="text-2xl">{profile.name.charAt(0)}</AvatarFallback>
-              </Avatar>
-            </TiltWrapper>
+            {!(profile.cover_enabled && profile.cover_url) && (
+              <TiltWrapper enabled={tiltEnabled}>
+                <Avatar className={`mx-auto ${AVATAR_SIZE_CLASSES[avatarSize]}`}>
+                  <AvatarImage src={profile.avatar_url ?? undefined} alt={profile.name} />
+                  <AvatarFallback className="text-2xl">{profile.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+              </TiltWrapper>
+            )}
             <h1 className="font-display text-4xl font-bold">{profile.name}</h1>
             <p className="text-lg text-primary font-medium">{profile.title}</p>
             {profile.tagline && <p className="text-muted-foreground">{profile.tagline}</p>}
