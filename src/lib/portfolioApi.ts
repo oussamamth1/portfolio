@@ -1,5 +1,7 @@
 export type ProfileTheme = "amber" | "violet" | "emerald" | "crimson" | "azure";
 
+export type ProfileAnimation = "none" | "fade" | "particles" | "matrix";
+
 export type SectionKey =
   | "skills"
   | "internships"
@@ -30,6 +32,7 @@ export interface RemoteProfile {
   resume_url: string | null;
   theme?: ProfileTheme;
   section_config?: SectionConfigItem[];
+  animation?: ProfileAnimation;
 }
 
 export interface RemoteSkill {
@@ -96,6 +99,10 @@ export function resolveSectionConfig(profile: RemoteProfile): SectionConfigItem[
   return profile.section_config && profile.section_config.length > 0
     ? profile.section_config
     : DEFAULT_SECTION_CONFIG;
+}
+
+export function resolveAnimation(profile: RemoteProfile): ProfileAnimation {
+  return profile.animation ?? "none";
 }
 
 export class RemoteProfileNotFoundError extends Error {
