@@ -62,7 +62,7 @@ export interface RemotePortfolio {
   projects: RemoteProject[];
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "https://portfolio-api.onrender.com";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "https://portfolio-api-l4on.onrender.com";
 
 export class RemoteProfileNotFoundError extends Error {
   constructor(username: string) {
