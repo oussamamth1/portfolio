@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { useParams } from "react-router-dom";
+import { motion, useReducedMotion } from "framer-motion";
 import { Github, Phone, FileText } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
+import ParticleBackground from "@/components/portfolio/ParticleBackground";
+import MatrixBackground from "@/components/portfolio/MatrixBackground";
 import {
   fetchRemotePortfolio,
+  resolveAnimation,
   resolveSectionConfig,
   resolveTheme,
   RemoteProfileNotFoundError,
@@ -30,6 +34,9 @@ type LoadState =
 export default function UserPortfolioPage() {
   const { username } = useParams<{ username: string }>();
   const [state, setState] = useState<LoadState>({ status: "loading" });
+  const prefersReduced = useReducedMotion();
+  const animation = state.status === "ready" ? resolveAnimation(state.data.profile) : "none";
+  const fadeEnabled = animation === "fade";
 
   useEffect(() => {
     if (!username) return;
@@ -68,7 +75,8 @@ export default function UserPortfolioPage() {
 
   const sectionRenderers: Partial<Record<SectionKey, React.ReactNode>> = {
     skills: skills.length > 0 && (
-      <Section title="Skills" key="skills">
+      <FadeIn key="skills" enabled={fadeEnabled} prefersReduced={prefersReduced}>
+      <Section title="Skills">
         <div className="grid gap-6 sm:grid-cols-2">
           {Array.from(skillsByCategory.entries()).map(([category, items]) => (
             <div key={category} className="space-y-3">
@@ -86,9 +94,11 @@ export default function UserPortfolioPage() {
           ))}
         </div>
       </Section>
+      </FadeIn>
     ),
     internships: internships.length > 0 && (
-      <Section title="Experience" key="internships">
+      <FadeIn key="internships" enabled={fadeEnabled} prefersReduced={prefersReduced}>
+      <Section title="Experience">
         <div className="space-y-4">
           {internships.map((job) => (
             <Card key={job.id}>
@@ -125,9 +135,11 @@ export default function UserPortfolioPage() {
           ))}
         </div>
       </Section>
+      </FadeIn>
     ),
     projects: projects.length > 0 && (
-      <Section title="Projects" key="projects">
+      <FadeIn key="projects" enabled={fadeEnabled} prefersReduced={prefersReduced}>
+      <Section title="Projects">
         <div className="grid gap-4 sm:grid-cols-2">
           {projects.map((project) => (
             <Card key={project.id}>
@@ -169,9 +181,11 @@ export default function UserPortfolioPage() {
           ))}
         </div>
       </Section>
+      </FadeIn>
     ),
     education: education.length > 0 && (
-      <Section title="Education" key="education">
+      <FadeIn key="education" enabled={fadeEnabled} prefersReduced={prefersReduced}>
+      <Section title="Education">
         <div className="space-y-4">
           {education.map((entry) => (
             <Card key={entry.id}>
@@ -193,9 +207,11 @@ export default function UserPortfolioPage() {
           ))}
         </div>
       </Section>
+      </FadeIn>
     ),
     certifications: certifications.length > 0 && (
-      <Section title="Certifications" key="certifications">
+      <FadeIn key="certifications" enabled={fadeEnabled} prefersReduced={prefersReduced}>
+      <Section title="Certifications">
         <div className="space-y-4">
           {certifications.map((cert) => (
             <Card key={cert.id}>
@@ -224,6 +240,7 @@ export default function UserPortfolioPage() {
           ))}
         </div>
       </Section>
+      </FadeIn>
     ),
   };
 
@@ -234,47 +251,80 @@ export default function UserPortfolioPage() {
 
   return (
     <main
-      className={`theme-${resolveTheme(profile)} min-h-screen bg-background text-foreground px-4 py-16`}
+      className={`theme-${resolveTheme(profile)} relative min-h-screen overflow-hidden bg-background text-foreground px-4 py-16`}
     >
-      <div className="mx-auto max-w-3xl space-y-16">
-        <section className="text-center space-y-3">
-          <Avatar className="mx-auto h-24 w-24">
-            <AvatarImage src={profile.avatar_url ?? undefined} alt={profile.name} />
-            <AvatarFallback className="text-2xl">{profile.name.charAt(0)}</AvatarFallback>
-          </Avatar>
-          <h1 className="font-display text-4xl font-bold">{profile.name}</h1>
-          <p className="text-lg text-primary font-medium">{profile.title}</p>
-          {profile.tagline && <p className="text-muted-foreground">{profile.tagline}</p>}
-          {profile.bio && (
-            <p className="mx-auto max-w-xl text-sm leading-relaxed text-muted-foreground">
-              {profile.bio}
-            </p>
-          )}
-          <div className="flex items-center justify-center gap-4 pt-2">
-            {profile.phone && (
-              <a
-                href={`tel:${profile.phone}`}
-                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
-              >
-                <Phone className="h-4 w-4" /> {profile.phone}
-              </a>
+      {animation === "particles" && <ParticleBackground />}
+      {animation === "matrix" && <MatrixBackground />}
+
+      <div className="relative z-10 mx-auto max-w-3xl space-y-16">
+        <FadeIn enabled={fadeEnabled} prefersReduced={prefersReduced}>
+          <section className="text-center space-y-3">
+            <Avatar className="mx-auto h-24 w-24">
+              <AvatarImage src={profile.avatar_url ?? undefined} alt={profile.name} />
+              <AvatarFallback className="text-2xl">{profile.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <h1 className="font-display text-4xl font-bold">{profile.name}</h1>
+            <p className="text-lg text-primary font-medium">{profile.title}</p>
+            {profile.tagline && <p className="text-muted-foreground">{profile.tagline}</p>}
+            {profile.bio && (
+              <p className="mx-auto max-w-xl text-sm leading-relaxed text-muted-foreground">
+                {profile.bio}
+              </p>
             )}
-            {profile.resume_url && (
-              <a
-                href={profile.resume_url}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
-              >
-                <FileText className="h-4 w-4" /> Resume
-              </a>
-            )}
-          </div>
-        </section>
+            <div className="flex items-center justify-center gap-4 pt-2">
+              {profile.phone && (
+                <a
+                  href={`tel:${profile.phone}`}
+                  className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+                >
+                  <Phone className="h-4 w-4" /> {profile.phone}
+                </a>
+              )}
+              {profile.resume_url && (
+                <a
+                  href={profile.resume_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+                >
+                  <FileText className="h-4 w-4" /> Resume
+                </a>
+              )}
+            </div>
+          </section>
+        </FadeIn>
 
         {orderedSections}
       </div>
     </main>
+  );
+}
+
+function FadeIn({
+  enabled,
+  prefersReduced,
+  children,
+}: {
+  enabled: boolean;
+  prefersReduced: boolean | null;
+  children: ReactNode;
+}) {
+  if (!enabled) return <>{children}</>;
+
+  const variants = {
+    hidden: prefersReduced ? { opacity: 0 } : { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0, 0, 0.2, 1] } },
+  };
+
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-80px" }}
+      variants={variants}
+    >
+      {children}
+    </motion.div>
   );
 }
 
