@@ -1,3 +1,25 @@
+export type ProfileTheme = "amber" | "violet" | "emerald" | "crimson" | "azure";
+
+export type SectionKey =
+  | "skills"
+  | "internships"
+  | "projects"
+  | "education"
+  | "certifications";
+
+export interface SectionConfigItem {
+  key: SectionKey;
+  visible: boolean;
+}
+
+const DEFAULT_SECTION_CONFIG: SectionConfigItem[] = [
+  { key: "skills", visible: true },
+  { key: "internships", visible: true },
+  { key: "projects", visible: true },
+  { key: "education", visible: true },
+  { key: "certifications", visible: true },
+];
+
 export interface RemoteProfile {
   name: string;
   title: string;
@@ -6,6 +28,8 @@ export interface RemoteProfile {
   phone: string | null;
   avatar_url: string | null;
   resume_url: string | null;
+  theme?: ProfileTheme;
+  section_config?: SectionConfigItem[];
 }
 
 export interface RemoteSkill {
@@ -63,6 +87,16 @@ export interface RemotePortfolio {
 }
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "https://portfolio-api-l4on.onrender.com";
+
+export function resolveTheme(profile: RemoteProfile): ProfileTheme {
+  return profile.theme ?? "amber";
+}
+
+export function resolveSectionConfig(profile: RemoteProfile): SectionConfigItem[] {
+  return profile.section_config && profile.section_config.length > 0
+    ? profile.section_config
+    : DEFAULT_SECTION_CONFIG;
+}
 
 export class RemoteProfileNotFoundError extends Error {
   constructor(username: string) {
